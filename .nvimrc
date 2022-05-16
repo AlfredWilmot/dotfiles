@@ -2,7 +2,7 @@
 "
 call plug#begin('~/.vim/plugged')
 Plug 'NLKNguyen/papercolor-theme'
-Plug 'fatih/vim-go'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
