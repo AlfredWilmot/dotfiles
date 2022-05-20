@@ -39,6 +39,10 @@ set incsearch
     "information column (how dirty is my code?)
 set colorcolumn=80
 set signcolumn=yes
+    "keep fileinfo always visible
+set statusline+=%F
+
+
 
 " Taken from Mickey's dotfiles repo (ensure plugin manager is installed if not)
     let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
