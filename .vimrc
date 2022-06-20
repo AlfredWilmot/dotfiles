@@ -3,6 +3,8 @@
 "
     "more sane leader key
 let mapleader = "\<Space>"
+    " stop generating those pesky swap files
+set noswapfile
     "detect files based on type
 filetype on 
 filetype plugin on 
@@ -41,6 +43,8 @@ set colorcolumn=80
 set signcolumn=yes
     "keep fileinfo always visible
 set statusline+=%F
+    " Alias 'replace all' to S:
+nnoremap S :%s//g<Left><Left>
 
 
 
