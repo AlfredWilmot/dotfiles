@@ -102,8 +102,6 @@ call pathogen#infect()
 " ====================
 
 " A nice-to-look at color scheme
-" cd ~/.vim/bundle
-" git clone https://github.com/morhetz/gruvbox
 colorscheme gruvbox
 set background=dark
 
@@ -111,7 +109,10 @@ set background=dark
 highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
 
-
+" Fuzzy-finder
+set rtp+=~/.fzf
+nnoremap <leader>ff :Files<cr>
+let $FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 " ====================
 " Python IDE Setup
 " ====================
