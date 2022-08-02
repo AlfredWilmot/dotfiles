@@ -1,5 +1,13 @@
 #TODO: automate these installation steps in vimrc (or here?) to auto-install missing packages
 
+# ====================
+# Install deps (missing more? TODO)
+# ====================
+
+# Normal Copy-Paste (requires vim-gtk3)
+# sudo apt-get install vim-gtk3
+#ap <C-p> "+P
+#noremap <C-c> "*y :let @+=@*<CR>
 
 # ====================
 # Plugin manager (pathogen)
