@@ -4,9 +4,10 @@
 # Install deps (missing more? TODO)
 # ====================
 
-# Normal Copy-Paste (requires vim-gtk3)
+# Install missing deps
 sudo apt-get update
-sudo apt-get install vim-gtk3
+sudo apt-get install -y vim-gtk3 # for sane copy-paste?
+sudo apt-get install -y ripgrep  # for fzf
 
 # Pathogen plugin manager
 mkdir -p ~/.vim/autoload ~/.vim/bundle
@@ -25,7 +26,7 @@ git submodule update --init --recursive
 mkdir -p ~/.vim/ftplugin
 wget -O ~/.vim/ftplugin/python_editing.vim https://www.vim.org/scripts/download_script.php?src_id=5492
 
-# use ipdb as debugger 
+# use ipdb as debugger
 pip install ipdb
 
 # ====================

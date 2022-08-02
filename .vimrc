@@ -113,6 +113,9 @@ match ExtraWhitespace /\s\+$/
 set rtp+=~/.fzf
 nnoremap <leader>ff :Files<cr>
 let $FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+
+
+
 " ====================
 " Python IDE Setup
 " ====================
