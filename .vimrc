@@ -13,8 +13,8 @@ set clipboard=unnamed
 
 " Normal Copy-Paste (requires vim-gtk3)
 " sudo apt-get install vim-gtk3
-map <C-p> "+P
-vnoremap <C-c> "*y :let @+=@*<CR>
+"map <C-V> "+P
+"vnoremap <C-c> "*y :let @+=@*<CR>
 
 " Enable point-click with mouse
 set mouse=a
@@ -114,6 +114,18 @@ set rtp+=~/.fzf
 nnoremap <leader>ff :Files<cr>
 let $FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 
+" YouCompleteMe <3 (configuring reference to python interpreter via global_extra_conf.py)
+set encoding=utf-8
+let g:ycm_python_interpreter_path = ''
+let g:ycm_python_sys_path = []
+let g:ycm_extra_conf_vim_data = [
+  \  'g:ycm_python_interpreter_path',
+  \  'g:ycm_python_sys_path'
+  \]
+let g:ycm_global_ycm_extra_conf = '~/global_extra_conf.py'
+let g:ycm_enable_semantic_highlighting=1
+
+
 
 
 " ====================
@@ -121,54 +133,45 @@ let $FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git
 " ====================
 
 " Settings for vim-powerline
-" cd ~/.vim/bundle
-" git clone https://github.com/powerline/powerline
 set laststatus=2
 
 " Settings for ctrip
-" cd ~/.vim/bundle
-" git clone https://github.com/kien/ctrlp.vim
 let g:ctrlp_max_height = 30
 set wildignore+=*.pyc
 set wildignore+=*_build/*
 set wildignore+=*/coverage/*
 
 " Settings for rope (python code assist)
-" cd ~/.vim/bundle
-" git clone https://github.com/python-rope/ropevim.git
-" pip install ropevim
+" N/A
 
-" Settings for python-mode
-" cd ~/.vim/bundle
-" git clone https://github.com/klen/python-mode
-" git submodule update --init --recursive
-map <Leader>g :call RopeGotoDefinition()<CR>
-let ropevim_enabel_shortcuts = 1
-let g:pymode_rope = 1
-let g:pymode_rope_completion = 1
-let g:pymoe_rope_completion_bind = '<C-Space>'
-let g:pymode_rope_goto_def_newwin = "vnew"
-let g:pymode_rope_extend_complete = 1
-let g:pymode_breakpoint = 0
-let g:pymode_syntax = 1
-let g:pymode_syntax_builtin_objs = 0
-let g:pymode_syntax_builtins_funcs = 0
-map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT <C-c>
-
-" Improved navigation through 'omnicomplete' option list
-set completeopt=longest,menuone
-function! OmniPopup(action)
-    if pumvisible()
-        if a:action == 'j'
-            return "\<C-N>"
-        elseif a:action == 'k'
-            return "\<C-P>"
-        endif
-    endif
-    return a:action
-endfunction
-inoremap <silent><C-j> <C-R>=OmniPopup('j')<CR>
-inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
+"" Settings for python-mode
+"map <Leader>g :call RopeGotoDefinition()<CR>
+"let ropevim_enabel_shortcuts = 1
+"let g:pymode_rope = 1
+"let g:pymode_rope_completion = 1
+"let g:pymoe_rope_completion_bind = '<C-Space>'
+"let g:pymode_rope_goto_def_newwin = "vnew"
+"let g:pymode_rope_extend_complete = 1
+"let g:pymode_breakpoint = 0
+"let g:pymode_syntax = 1
+"let g:pymode_syntax_builtin_objs = 0
+"let g:pymode_syntax_builtins_funcs = 0
+"map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT <C-c>
+"
+"" Improved navigation through 'omnicomplete' option list
+"set completeopt=longest,menuone
+"function! OmniPopup(action)
+"    if pumvisible()
+"        if a:action == 'j'
+"            return "\<C-N>"
+"        elseif a:action == 'k'
+"            return "\<C-P>"
+"        endif
+"    endif
+"    return a:action
+"endfunction
+"inoremap <silent><C-j> <C-R>=OmniPopup('j')<CR>
+"inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
 
 " Settings for folding python functions/classes
 " mkdir -p ~/.vim/ftplugin

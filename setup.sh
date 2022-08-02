@@ -25,6 +25,18 @@ git clone https://github.com/junegunn/fzf.vim.git
 git submodule update --init --recursive
 mkdir -p ~/.vim/ftplugin
 wget -O ~/.vim/ftplugin/python_editing.vim https://www.vim.org/scripts/download_script.php?src_id=5492
+# NOTE: ^ removed the annoying mapping of f to single fold and changed <C-f> to togglefoldall
+
+# You Complete Me (YCM: https://vimawesome.com/plugin/youcompleteme#linux-64-bit)
+sudo apt install build-essential cmake vim-nox python3-dev
+sudo apt install mono-complete golang nodejs default-jdk npm
+cd ~/.vim/bundle
+git clone https://github.com/ycm-core/YouCompleteMe.git
+cd YouCompleteMe
+git submodule update --init --recursive
+python3 install.py --all
+
+
 
 # use ipdb as debugger
 pip install ipdb
