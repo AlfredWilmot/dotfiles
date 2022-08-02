@@ -35,7 +35,7 @@
 
 #Settings for folding python functions/classes
 # mkdir -p ~/.vim/ftplugin
-# wget -O ~/.vim/ftplugin/python_editing.vim http://www.vim.org/scripts/script.php?script_id=1494
+#wget -O ~/.vim/ftplugin/python_editing.vim https://www.vim.org/scripts/download_script.php?src_id=5492
 
 # ====================
 # Taken from Mickey's dotfiles repo (ensure "Plug" plugin manager is installed if not)
