@@ -59,6 +59,7 @@ nnoremap S :%s//g<Left><Left>
     call plug#begin('~/.vim/plugged')
         Plug 'morhetz/gruvbox'
         Plug 'mileszs/ack.vim'
+        Plug 'francoiscabrol/ranger.vim'
     call plug#end()
 " Don't forget to run the following to ensure plugins are installed locally!!
 " source %
@@ -117,3 +118,9 @@ nnoremap <Leader>/ :Ack!<Space>
 " Navigate quickfix list with ease
 nnoremap <silent> [q :cprevious<CR>
 nnoremap <silent> ]q :cnext<CR>
+
+
+
+"Stuff for Ranger Plugin (https://github.com/francoiscabrol/ranger.vim)
+map <leader>ra :Ranger<CR>
+"

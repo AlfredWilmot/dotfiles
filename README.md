@@ -4,3 +4,6 @@ Clone repo then make a soft symbolic link to wherever the service that uses the 
 
 > Vim:
 > `ln -sf ${PWD}/.vimrc ~/.vimrc`
+
+> Ranger:
+> `ln -sf ${PWD}/.`
