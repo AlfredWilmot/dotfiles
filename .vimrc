@@ -35,10 +35,6 @@ vnoremap <Leader>s :sort<CR>
 vnoremap < <gv
 vnoremap > >gv
 
-" should highlight any trailing whitespace and remove it when saving
-highlight ExtraWhitespace ctermbg=red guibg=red
-match ExtraWhitespace /\s\+$/
-
 " Indentation options
 set tabstop=4 softtabstop=4
 set shiftwidth=4
@@ -102,6 +98,21 @@ call pathogen#infect()
 
 
 " ====================
+" General plugins
+" ====================
+
+" A nice-to-look at color scheme
+" cd ~/.vim/bundle
+" git clone https://github.com/morhetz/gruvbox
+colorscheme gruvbox
+set background=dark
+
+" should highlight any trailing whitespace and remove it when saving
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+
+
+" ====================
 " Python IDE Setup
 " ====================
 
@@ -118,11 +129,20 @@ set wildignore+=*.pyc
 set wildignore+=*_build/*
 set wildignore+=*/coverage/*
 
+" Settings for rope (python code assist)
+" cd ~/.vim/bundle
+" git clone https://github.com/python-rope/ropevim.git
+" pip install ropevim
+
 " Settings for python-mode
 " cd ~/.vim/bundle
 " git clone https://github.com/klen/python-mode
+" git submodule update --init --recursive
 map <Leader>g :call RopeGotoDefinition()<CR>
 let ropevim_enabel_shortcuts = 1
+let g:pymode_rope = 1
+let g:pymode_rope_completion = 1
+let g:pymoe_rope_completion_bind = '<C-Space>'
 let g:pymode_rope_goto_def_newwin = "vnew"
 let g:pymode_rope_extend_complete = 1
 let g:pymode_breakpoint = 0
