@@ -1,29 +1,78 @@
-" settings
-"
-"
-    "more sane leader key
+"    __   _(_)_ __ ___  _ __ ___
+"    \ \ / / | '_ ` _ \| '__/ __|
+"     \ V /| | | | | | | | | (__
+"    (_)_/ |_|_| |_| |_|_|  \___|
+" _______________________________________
+"/ You'll wish that you had done some of \
+"| the hard things when they were easier |
+"\ to do.                                /
+" ---------------------------------------
+"        \   ^__^
+"         \  (oo)\_______
+"            (__)\       )\/\
+"                ||----w |
+"                ||     ||
+" ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+"more sane leader key
 let mapleader = "\<Space>"
+
+
+" Ensure plugin manager is installed if not
+    let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+    if empty(glob(data_dir . '/autoload/plug.vim'))
+        silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+        autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+    endif
+
+
+" Auto reload of vimrc
+autocmd! bufwritepost .vimrc source %
+
+" load installed plugins
+    call plug#begin('~/.vim/plugged')
+        Plug 'morhetz/gruvbox'                  " Colors!
+        Plug 'mileszs/ack.vim'                  " Recursive regex search wrt current working directory
+        Plug 'francoiscabrol/ranger.vim'        " Call-up a file-tree navigator from vim on command
+        "Plug 'haya14busa/is.vim'               " Automatically clear search highlights after you move your cursor.
+        Plug 'ntpeters/vim-better-whitespace'   " See trailing whitespaces more clearly
+        Plug 'mhinz/vim-signify'                " Shows git file changes in the 'gutter'
+        Plug 'tpope/vim-fugitive'               " Git wrapper
+        Plug 'vim-scripts/AutoComplPop'         " Show vims complete menu while typing
+        Plug 'unblevable/quick-scope'           " Highlight which character to jump to when using horizontal movement keys
+        Plug 'janko/vim-test'                   " Test suites for various languages
+    call plug#end()
+" Don't forget to run the following to ensure plugins are installed locally!!
+" source %
+" PlugInstall
+
+
+
+
+    " Enable point-click with mouse
+set mouse=a
     " stop generating those pesky swap files
 set noswapfile
     "detect files based on type
-filetype on 
-filetype plugin on 
+filetype on
+filetype plugin on
     "enable line numbers
-set nu 
+set nu
 set number relativenumber
     "change default split-window location
-set splitbelow splitright 
+set splitbelow splitright
     " Indentation options
-set tabstop=4 softtabstop=4 
+set tabstop=4 softtabstop=4
 set shiftwidth=4
 set expandtab
 set smartindent
     " Indentation options
-filetype indent on 
-set colorcolumn=80 
+filetype indent on
+set colorcolumn=80
 set signcolumn=yes
     " Prevent line-wrap
-set nowrap 
+set nowrap
     " Shortcutting split navigation:
 map <C-h> <c-w>h
 map <C-j> <c-w>j
@@ -45,30 +94,9 @@ set signcolumn=yes
 set statusline+=%F
     " Alias 'replace all' to S:
 nnoremap S :%s//g<Left><Left>
-
-
-
-" Taken from Mickey's dotfiles repo (ensure plugin manager is installed if not)
-    let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
-    if empty(glob(data_dir . '/autoload/plug.vim'))
-        silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-        autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-    endif
-
-" load installed plugins
-    call plug#begin('~/.vim/plugged')
-        Plug 'morhetz/gruvbox'
-        Plug 'mileszs/ack.vim'
-        Plug 'francoiscabrol/ranger.vim'
-    call plug#end()
-" Don't forget to run the following to ensure plugins are installed locally!!
-" source %
-" PlugInstall
-
-"setting colorscheme
-    colorscheme gruvbox
-    set background=dark
-
+    "setting colorscheme
+colorscheme gruvbox
+set background=dark
 
 
 "Plugin-free fuzzy-finder implementation
@@ -85,42 +113,29 @@ function! FZF() abort
 		call delete(l:tempname)
 	endtry
 endfunction
-
 " :Files
 command! Files call FZF()
-
 " \ff
 nnoremap <leader>ff :Files<cr>
 
-"Ripped from https://www.freecodecamp.org/news/how-to-search-project-wide-vim-ripgrep-ack/
-" ack.vim --- {{{
 
+"Ripped from https://www.freecodecamp.org/news/how-to-search-project-wide-vim-ripgrep-ack/
 " Use ripgrep for searching ⚡️
 " Options include:
 " --vimgrep -> Needed to parse the rg response properly for ack.vim
 " --type-not sql -> Avoid huge sql file dumps as it slows down the search
 " --smart-case -> Search case insensitive if all lowercase pattern, Search case sensitively otherwise
 let g:ackprg = 'rg --vimgrep --type-not sql --smart-case'
-
-" Auto close the Quickfix list after pressing '<enter>' on a list item
+    " Auto close the Quickfix list after pressing '<enter>' on a list item
 let g:ack_autoclose = 1
-
-" Any empty ack search will search for the work the cursor is on
+    " Any empty ack search will search for the work the cursor is on
 let g:ack_use_cword_for_empty_search = 1
-
-" Don't jump to first match
+    " Don't jump to first match
 cnoreabbrev Ack Ack!
-
-" Maps <leader>/ so we're ready to type the search keyword
+    " Maps <leader>/ so we're ready to type the search keyword
 nnoremap <Leader>/ :Ack!<Space>
-" }}}
-
-" Navigate quickfix list with ease
+    " Navigate quickfix list with ease
 nnoremap <silent> [q :cprevious<CR>
 nnoremap <silent> ]q :cnext<CR>
-
-
-
-"Stuff for Ranger Plugin (https://github.com/francoiscabrol/ranger.vim)
+    "Stuff for Ranger Plugin (https://github.com/francoiscabrol/ranger.vim)
 map <leader>ra :Ranger<CR>
-"
