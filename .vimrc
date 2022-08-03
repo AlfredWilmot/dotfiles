@@ -18,6 +18,9 @@
 "more sane leader key
 let mapleader = "\<Space>"
 
+"keep fileinfo always visible
+set statusline+=%F
+
 
 " Ensure plugin manager is installed if not
     let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
@@ -28,55 +31,117 @@ let mapleader = "\<Space>"
 
 
 " load installed plugins
-    call plug#begin('~/.vim/plugged')
+call plug#begin('~/.vim/plugged')
 
-        " General plugins
-        Plug 'morhetz/gruvbox'                  " Colors!
-        Plug 'mileszs/ack.vim'                  " Recursive regex search wrt current working directory
-        Plug 'francoiscabrol/ranger.vim'        " Call-up a file-tree navigator from vim on command
-        "Plug 'haya14busa/is.vim'               " Automatically clear search highlights after you move your cursor.
-        Plug 'ntpeters/vim-better-whitespace'   " See trailing whitespaces more clearly
-        Plug 'mhinz/vim-signify'                " Shows git file changes in the 'gutter'
-        Plug 'tpope/vim-fugitive'               " Git wrapper
-        Plug 'vim-scripts/AutoComplPop'         " Show vims complete menu while typing
-        Plug 'unblevable/quick-scope'           " Highlight which character to jump to when using horizontal movement keys
-        Plug 'janko/vim-test'                   " Test suites for various languages
-        Plug 'davidhalter/jedi-vim'             " Python autocompletion (https://github.com/davidhalter/jedi-vim)
+    " General plugins
+    Plug 'morhetz/gruvbox'                  " Colors!
+    Plug 'mileszs/ack.vim'                  " Recursive regex search wrt current working directory
+    Plug 'francoiscabrol/ranger.vim'        " Call-up a file-tree navigator from vim on command
+    "Plug 'haya14busa/is.vim'               " Automatically clear search highlights after you move your cursor.
+    Plug 'ntpeters/vim-better-whitespace'   " See trailing whitespaces more clearly
+    Plug 'mhinz/vim-signify'                " Shows git file changes in the 'gutter'
+    Plug 'tpope/vim-fugitive'               " Git wrapper
+    Plug 'vim-scripts/AutoComplPop'         " Show vims complete menu while typing
+    Plug 'unblevable/quick-scope'           " Highlight which character to jump to when using horizontal movement keys
+    Plug 'janko/vim-test'                   " Test suites for various languages
+    Plug 'davidhalter/jedi-vim'             " Python autocompletion (https://github.com/davidhalter/jedi-vim)
 
 
-        " Languages and file types.
-        Plug 'cakebaker/scss-syntax.vim'
-        Plug 'chr4/nginx.vim'
-        Plug 'chrisbra/csv.vim'
-        Plug 'ekalinin/dockerfile.vim'
-        Plug 'elixir-editors/vim-elixir'
-        Plug 'Glench/Vim-Jinja2-Syntax'
-        Plug 'fatih/vim-go'
-        Plug 'cespare/vim-toml', { 'branch': 'main' }
-        Plug 'godlygeek/tabular' | Plug 'tpope/vim-markdown'
-        Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install' }
-        Plug 'jvirtanen/vim-hcl'
-        Plug 'lifepillar/pgsql.vim'
-        Plug 'othree/html5.vim'
-        Plug 'pangloss/vim-javascript'
-        Plug 'MaxMEllon/vim-jsx-pretty'
-        Plug 'PotatoesMaster/i3-vim-syntax'
-        Plug 'stephpy/vim-yaml'
-        Plug 'tmux-plugins/vim-tmux'
-        Plug 'tpope/vim-git'
-        Plug 'tpope/vim-liquid'
-        Plug 'tpope/vim-rails'
-        Plug 'vim-python/python-syntax'
-        Plug 'vim-ruby/vim-ruby'
-        Plug 'wgwoods/vim-systemd-syntax'
-        Plug 'towolf/vim-helm'
-        Plug 'hashivim/vim-terraform'
+    " Languages and file types.
+    Plug 'cakebaker/scss-syntax.vim'
+    Plug 'chr4/nginx.vim'
+    Plug 'chrisbra/csv.vim'
+    Plug 'ekalinin/dockerfile.vim'
+    Plug 'elixir-editors/vim-elixir'
+    Plug 'Glench/Vim-Jinja2-Syntax'
+    Plug 'fatih/vim-go'
+    Plug 'cespare/vim-toml', { 'branch': 'main' }
 
-    call plug#end()
+    " MD preview stuff (requires yarn and node-js)
+    Plug 'godlygeek/tabular' | Plug 'tpope/vim-markdown'
+    "Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install' }
+    Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+
+    Plug 'jvirtanen/vim-hcl'
+    Plug 'lifepillar/pgsql.vim'
+    Plug 'othree/html5.vim'
+    Plug 'pangloss/vim-javascript'
+    Plug 'MaxMEllon/vim-jsx-pretty'
+    Plug 'PotatoesMaster/i3-vim-syntax'
+    Plug 'stephpy/vim-yaml'
+    Plug 'tmux-plugins/vim-tmux'
+    Plug 'tpope/vim-git'
+    Plug 'tpope/vim-liquid'
+    Plug 'tpope/vim-rails'
+    Plug 'vim-python/python-syntax'
+    Plug 'vim-ruby/vim-ruby'
+    Plug 'wgwoods/vim-systemd-syntax'
+    Plug 'towolf/vim-helm'
+    Plug 'hashivim/vim-terraform'
+
+call plug#end()
 " Don't forget to run the following to ensure plugins are installed locally!!
 " source %
 " PlugInstall
+" :call mkdp#util#install()"
 
+
+" =============================
+" gruvbox settings (colorscheme)
+" =============================
+
+colorscheme gruvbox
+set background=dark
+
+
+" =============================
+" vim-jedi settings
+" =============================
+
+let g:jedi#goto_command = "<leader>d"
+let g:jedi#goto_assignments_command = "<leader>g"
+let g:jedi#goto_stubs_command = "<leader>s"
+let g:jedi#goto_definitions_command = ""
+let g:jedi#documentation_command = "K"
+let g:jedi#usages_command = "<leader>n"
+let g:jedi#completions_command = "<C-Space>"
+let g:jedi#rename_command = "<leader>r"
+let g:jedi#environment_path = "/usr/bin/python3.7"
+
+
+" =============================
+" vim-markdown settings (https://www.youtube.com/watch?v=22JAs0kNA9k&t=46s)
+" =============================
+
+" prevent syntax from being hidden
+autocmd FileType markdown set conceallevel=0
+"default unfolded
+autocmd FileType markdown normal zR
+let g:vim_markdown_formatter=1
+
+
+" =============================
+" markdown-preview settings
+" =============================
+
+" only refresh the MD preview when saving
+let g:mkdp_refresh_slow=1
+" automaticall start a preview when opening a .md file
+let g:mkdp_auto_start=1
+
+set autoread
+set showcmd
+set shortmess+=c
+set showmode
+set wildmenu
+set path+=**
+set wildmode=full
+set completeopt=menuone,longest
+
+
+" =============================
+" misc settings
+" =============================
 
 " Auto reload of vimrc
 autocmd! bufwritepost .vimrc source %
@@ -90,18 +155,6 @@ set noswapfile
 " use the system clipboard by default (https://advancedweb.hu/working-with-the-system-clipboard-in-vim/)
 " check 'vim --version', contains either the +clipboard or +xterm_clipboard flags
 set clipboard=unnamedplus
-
-" vim-jedi settings
-"let g:jedi#use_splits_not_buffers = "left"
-let g:jedi#goto_command = "<leader>d"
-let g:jedi#goto_assignments_command = "<leader>g"
-let g:jedi#goto_stubs_command = "<leader>s"
-let g:jedi#goto_definitions_command = ""
-let g:jedi#documentation_command = "K"
-let g:jedi#usages_command = "<leader>n"
-let g:jedi#completions_command = "<C-Space>"
-let g:jedi#rename_command = "<leader>r"
-let g:jedi#environment_path = "/usr/bin/python3.7"
 
 "detect files based on type
 filetype on
@@ -147,18 +200,12 @@ set smartcase
 set colorcolumn=80
 set signcolumn=yes
 
-"keep fileinfo always visible
-set statusline+=%F
+"status line data: keep fileinfo always visible, and show git info
+set laststatus=2
+set statusline+=%<%f\ %h%m%r%{FugitiveStatusline()}%=%-14.(%l,%c%V%)\ %P
 
 " Alias 'replace all' to S:
 nnoremap S :%s//g<Left><Left>
-
-"setting colorscheme
-colorscheme gruvbox
-set background=dark
-
-"keep fileinfo always visible
-set statusline+=%F
 
 " map sort function to a key
 vnoremap <Leader>s :sort<CR>
