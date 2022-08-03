@@ -42,6 +42,36 @@ autocmd! bufwritepost .vimrc source %
         Plug 'vim-scripts/AutoComplPop'         " Show vims complete menu while typing
         Plug 'unblevable/quick-scope'           " Highlight which character to jump to when using horizontal movement keys
         Plug 'janko/vim-test'                   " Test suites for various languages
+
+
+        " Languages and file types.
+        Plug 'cakebaker/scss-syntax.vim'
+        Plug 'chr4/nginx.vim'
+        Plug 'chrisbra/csv.vim'
+        Plug 'ekalinin/dockerfile.vim'
+        Plug 'elixir-editors/vim-elixir'
+        Plug 'Glench/Vim-Jinja2-Syntax'
+        Plug 'fatih/vim-go'
+        Plug 'cespare/vim-toml', { 'branch': 'main' }
+        Plug 'godlygeek/tabular' | Plug 'tpope/vim-markdown'
+        Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install' }
+        Plug 'jvirtanen/vim-hcl'
+        Plug 'lifepillar/pgsql.vim'
+        Plug 'othree/html5.vim'
+        Plug 'pangloss/vim-javascript'
+        Plug 'MaxMEllon/vim-jsx-pretty'
+        Plug 'PotatoesMaster/i3-vim-syntax'
+        Plug 'stephpy/vim-yaml'
+        Plug 'tmux-plugins/vim-tmux'
+        Plug 'tpope/vim-git'
+        Plug 'tpope/vim-liquid'
+        Plug 'tpope/vim-rails'
+        Plug 'vim-python/python-syntax'
+        Plug 'vim-ruby/vim-ruby'
+        Plug 'wgwoods/vim-systemd-syntax'
+        Plug 'towolf/vim-helm'
+        Plug 'hashivim/vim-terraform'
+
     call plug#end()
 " Don't forget to run the following to ensure plugins are installed locally!!
 " source %
@@ -117,7 +147,7 @@ endfunction
 command! Files call FZF()
 " \ff
 nnoremap <leader>ff :Files<cr>
-
+let $FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 
 "Ripped from https://www.freecodecamp.org/news/how-to-search-project-wide-vim-ripgrep-ack/
 " Use ripgrep for searching ⚡️
