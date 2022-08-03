@@ -27,11 +27,10 @@ let mapleader = "\<Space>"
     endif
 
 
-" Auto reload of vimrc
-autocmd! bufwritepost .vimrc source %
-
 " load installed plugins
     call plug#begin('~/.vim/plugged')
+
+        " General plugins
         Plug 'morhetz/gruvbox'                  " Colors!
         Plug 'mileszs/ack.vim'                  " Recursive regex search wrt current working directory
         Plug 'francoiscabrol/ranger.vim'        " Call-up a file-tree navigator from vim on command
@@ -78,55 +77,85 @@ autocmd! bufwritepost .vimrc source %
 " PlugInstall
 
 
+" Auto reload of vimrc
+autocmd! bufwritepost .vimrc source %
 
-
-    " Enable point-click with mouse
+" Enable point-click with mouse
 set mouse=a
-    " stop generating those pesky swap files
+
+" stop generating those pesky swap files
 set noswapfile
-    "detect files based on type
+
+"detect files based on type
 filetype on
 filetype plugin on
-    "enable line numbers
+
+"enable line numbers
 set nu
 set number relativenumber
-    "change default split-window location
+
+"change default split-window location
 set splitbelow splitright
-    " Indentation options
+
+" Indentation options
 set tabstop=4 softtabstop=4
 set shiftwidth=4
 set expandtab
 set smartindent
-    " Indentation options
+
+" Indentation options
 filetype indent on
 set colorcolumn=80
 set signcolumn=yes
-    " Prevent line-wrap
+
+" Prevent line-wrap
 set nowrap
-    " Shortcutting split navigation:
+
+" Shortcutting split navigation:
 map <C-h> <c-w>h
 map <C-j> <c-w>j
 map <C-k> <c-w>k
 map <C-l> <c-w>l
-    " set-up copy-paste functionality using system-clipboard
-    " need to install vim-gtk3 to enable this:  https://superuser.com/questions/1559544/how-to-copy-from-vim-to-clipboard-on-ubuntu-20-04
-    " some useful mappings to make this easier: https://www.youtube.com/watch?v=E_rbfQqrm7g:W
+
+" set-up copy-paste functionality using system-clipboard
+" need to install vim-gtk3 to enable this:  https://superuser.com/questions/1559544/how-to-copy-from-vim-to-clipboard-on-ubuntu-20-04
+" some useful mappings to make this easier: https://www.youtube.com/watch?v=E_rbfQqrm7g:W
 map <C-p> "+P
 vnoremap <C-c> "*y :let @+=@*<CR>
-    "keep cursor more centered (keeps gap between cursor and border)
+
+"keep cursor more centered (keeps gap between cursor and border)
 set scrolloff=8
-    "regex highlighting options
+
+" Case-insensitive regex searches
+set hlsearch
 set incsearch
-    "information column (how dirty is my code?)
+set ignorecase
+set smartcase
+
+"information column (how dirty is my code?)
 set colorcolumn=80
 set signcolumn=yes
-    "keep fileinfo always visible
+
+"keep fileinfo always visible
 set statusline+=%F
-    " Alias 'replace all' to S:
+
+" Alias 'replace all' to S:
 nnoremap S :%s//g<Left><Left>
-    "setting colorscheme
+
+"setting colorscheme
 colorscheme gruvbox
 set background=dark
+
+"keep fileinfo always visible
+set statusline+=%F
+
+" map sort function to a key
+vnoremap <Leader>s :sort<CR>
+
+" easier code-block indentation manipulation
+vnoremap < <gv
+vnoremap > >gv
+
 
 
 "Plugin-free fuzzy-finder implementation
