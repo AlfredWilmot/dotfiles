@@ -41,6 +41,7 @@ let mapleader = "\<Space>"
         Plug 'vim-scripts/AutoComplPop'         " Show vims complete menu while typing
         Plug 'unblevable/quick-scope'           " Highlight which character to jump to when using horizontal movement keys
         Plug 'janko/vim-test'                   " Test suites for various languages
+        Plug 'davidhalter/jedi-vim'             " Python autocompletion (https://github.com/davidhalter/jedi-vim)
 
 
         " Languages and file types.
@@ -86,6 +87,22 @@ set mouse=a
 " stop generating those pesky swap files
 set noswapfile
 
+" use the system clipboard by default (https://advancedweb.hu/working-with-the-system-clipboard-in-vim/)
+" check 'vim --version', contains either the +clipboard or +xterm_clipboard flags
+set clipboard=unnamedplus
+
+" vim-jedi settings
+"let g:jedi#use_splits_not_buffers = "left"
+let g:jedi#goto_command = "<leader>d"
+let g:jedi#goto_assignments_command = "<leader>g"
+let g:jedi#goto_stubs_command = "<leader>s"
+let g:jedi#goto_definitions_command = ""
+let g:jedi#documentation_command = "K"
+let g:jedi#usages_command = "<leader>n"
+let g:jedi#completions_command = "<C-Space>"
+let g:jedi#rename_command = "<leader>r"
+let g:jedi#environment_path = "/usr/bin/python3.7"
+
 "detect files based on type
 filetype on
 filetype plugin on
@@ -116,12 +133,6 @@ map <C-h> <c-w>h
 map <C-j> <c-w>j
 map <C-k> <c-w>k
 map <C-l> <c-w>l
-
-" set-up copy-paste functionality using system-clipboard
-" need to install vim-gtk3 to enable this:  https://superuser.com/questions/1559544/how-to-copy-from-vim-to-clipboard-on-ubuntu-20-04
-" some useful mappings to make this easier: https://www.youtube.com/watch?v=E_rbfQqrm7g:W
-map <C-p> "+P
-vnoremap <C-c> "*y :let @+=@*<CR>
 
 "keep cursor more centered (keeps gap between cursor and border)
 set scrolloff=8
@@ -156,7 +167,13 @@ vnoremap <Leader>s :sort<CR>
 vnoremap < <gv
 vnoremap > >gv
 
+" utf-8 is needed for most flavors of unicode
+set encoding=utf-8
 
+" Prevent x and the delete key from overriding what's in the clipboard.
+noremap x "_x
+noremap X "_x
+noremap <Del> "_x
 
 "Plugin-free fuzzy-finder implementation
 " (https://www.reddit.com/r/vim/comments/orfpbd/interactive_fuzzy_finder_in_vim_without_plugins/)
