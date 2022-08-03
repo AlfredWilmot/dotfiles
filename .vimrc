@@ -37,7 +37,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'morhetz/gruvbox'                  " Colors!
     Plug 'mileszs/ack.vim'                  " Recursive regex search wrt current working directory
     Plug 'francoiscabrol/ranger.vim'        " Call-up a file-tree navigator from vim on command
-    "Plug 'haya14busa/is.vim'               " Automatically clear search highlights after you move your cursor.
+    Plug 'haya14busa/is.vim'               " Automatically clear search highlights after you move your cursor.
     Plug 'ntpeters/vim-better-whitespace'   " See trailing whitespaces more clearly
     Plug 'mhinz/vim-signify'                " Shows git file changes in the 'gutter'
     Plug 'tpope/vim-fugitive'               " Git wrapper
@@ -125,9 +125,10 @@ let g:vim_markdown_formatter=1
 " =============================
 
 " only refresh the MD preview when saving
-let g:mkdp_refresh_slow=1
-" automaticall start a preview when opening a .md file
-let g:mkdp_auto_start=1
+"let g:mkdp_refresh_slow=1
+" only show MD preview when requested by user
+let g:mkdp_auto_start=0
+map <C-p> :MarkdownPreview<CR>
 
 set autoread
 set showcmd
@@ -137,7 +138,6 @@ set wildmenu
 set path+=**
 set wildmode=full
 set completeopt=menuone,longest
-
 
 " =============================
 " misc settings
