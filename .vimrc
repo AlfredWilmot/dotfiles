@@ -59,7 +59,7 @@ call plug#begin('~/.vim/plugged')
 
     " MD preview stuff (requires yarn and node-js)
     Plug 'godlygeek/tabular' | Plug 'tpope/vim-markdown'
-    "Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install' }
+        " sudo apt-get install -y xdg-utils
     Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
     Plug 'jvirtanen/vim-hcl'
@@ -106,7 +106,7 @@ let g:jedi#documentation_command = "K"
 let g:jedi#usages_command = "<leader>n"
 let g:jedi#completions_command = "<C-Space>"
 let g:jedi#rename_command = "<leader>r"
-let g:jedi#environment_path = "/usr/bin/python3.7"
+let g:jedi#environment_path = "/usr/bin/python3"
 
 
 " =============================
