@@ -1,0 +1,2 @@
+# https://askubuntu.com/questions/528293/is-there-a-way-to-restart-the-touchpad-driver
+alias resetmouse='echo "resetting trackpad driver..." && sudo modprobe -r psmouse && sudo modprobe psmouse && echo "done!"'

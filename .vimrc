@@ -61,7 +61,7 @@ call plug#begin('~/.vim/plugged')
 
     " MD preview stuff (requires yarn and node-js)
     Plug 'godlygeek/tabular' | Plug 'tpope/vim-markdown'
-    "Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install' }
+        " sudo apt-get install -y xdg-utils
     Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
     Plug 'jvirtanen/vim-hcl'
