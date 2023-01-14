@@ -56,6 +56,8 @@ call plug#begin('~/.vim/plugged')
     Plug 'Glench/Vim-Jinja2-Syntax'
     Plug 'fatih/vim-go'
     Plug 'cespare/vim-toml', { 'branch': 'main' }
+    Plug 'dart-lang/dart-vim-plugin'
+    Plug 'thosakwe/vim-flutter'
 
     " MD preview stuff (requires yarn and node-js)
     Plug 'godlygeek/tabular' | Plug 'tpope/vim-markdown'
@@ -79,12 +81,13 @@ call plug#begin('~/.vim/plugged')
     Plug 'towolf/vim-helm'
     Plug 'hashivim/vim-terraform'
 
+    Plug 'andviro/flake8-vim'
+
 call plug#end()
 " Don't forget to run the following to ensure plugins are installed locally!!
 " source %
 " PlugInstall
 " :call mkdp#util#install()"
-
 
 " =============================
 " gruvbox settings (colorscheme)
@@ -106,7 +109,7 @@ let g:jedi#documentation_command = "K"
 let g:jedi#usages_command = "<leader>n"
 let g:jedi#completions_command = "<C-Space>"
 let g:jedi#rename_command = "<leader>r"
-let g:jedi#environment_path = "/usr/bin/python3.7"
+let g:jedi#environment_path = ".venv"
 
 
 " =============================
@@ -130,14 +133,14 @@ let g:vim_markdown_formatter=1
 let g:mkdp_auto_start=0
 map <C-p> :MarkdownPreview<CR>
 
-set autoread
-set showcmd
-set shortmess+=c
-set showmode
-set wildmenu
-set path+=**
-set wildmode=full
-set completeopt=menuone,longest
+"set autoread
+"set showcmd
+"set shortmess+=c
+"set showmode
+"set wildmenu
+"set path+=**
+"set wildmode=full
+"set completeopt=menuone,longest
 
 " =============================
 " misc settings
@@ -202,7 +205,7 @@ set signcolumn=yes
 
 "status line data: keep fileinfo always visible, and show git info
 set laststatus=2
-set statusline+=%<%f\ %h%m%r%{FugitiveStatusline()}%=%-14.(%l,%c%V%)\ %P
+set statusline=%<%f\ %h%m%r%{FugitiveStatusline()}%=%-14.(%l,%c%V%)\ %P
 
 " Alias 'replace all' to S:
 nnoremap S :%s//g<Left><Left>
@@ -262,3 +265,14 @@ nnoremap <silent> [q :cprevious<CR>
 nnoremap <silent> ]q :cnext<CR>
     "Stuff for Ranger Plugin (https://github.com/francoiscabrol/ranger.vim)
 map <leader>ra :Ranger<CR>
+
+" Some Jenkins linting stuff
+" References:
+" > https://davidcraddock.net/2022/02/19/working-with-jenkinsfiles-in-vim/
+" > https://www.youtube.com/watch?v=9IjKUGn2TIk
+
+    " Jenkinsfile syntax highlightling
+autocmd BufRead,BufNewFile Jenkinsfile set filetype=groovy
+
+    " Jenkinsfile linting
+autocmd BufWritePost Jenkinsfile !java -jar ~/jenkins-cli.jar -s http://ds1-test-farm.touchsurgery.com/ -auth admin:digis -webSocket declarative-linter < %
