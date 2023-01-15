@@ -45,7 +45,6 @@ call plug#begin('~/.vim/plugged')
         Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
         Plug 'preservim/nerdtree'
         Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-        Plug 'ryanoasis/vim-devicons'
 
         " Recursive fuzzy file-finder wrt ./
         Plug 'junegunn/fzf.vim'
@@ -54,6 +53,7 @@ call plug#begin('~/.vim/plugged')
     " Version-control
     Plug 'tpope/vim-fugitive'
     Plug 'vim-airline/vim-airline'
+    Plug 'airblade/vim-gitgutter'
 
     " Vim-usage utilities
     Plug 'haya14busa/is.vim'                " Automatically clear search highlights after you move your cursor.
