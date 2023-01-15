@@ -83,6 +83,18 @@ call plug#begin('~/.vim/plugged')
 
     Plug 'andviro/flake8-vim'
 
+    " https://www.youtube.com/watch?v=-0RiAlOXGYs
+    "
+    " Language support
+    Plug 'neoclide/coc.nvim'
+    Plug 'jiangmiao/auto-pairs'
+
+    " Snippets
+    Plug 'SirVer/ultisnips'
+    Plug 'honza/vim-snippets'
+    Plug 'natebosch/dartlang-snippets'
+
+
 call plug#end()
 " Don't forget to run the following to ensure plugins are installed locally!!
 " source %
