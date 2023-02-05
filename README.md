@@ -103,14 +103,16 @@ vim --version
 # -farsi             -mouse_sysmouse    -tag_old_static 
 ```
 
-## Initial Setup
-
-
 
 ## Enabling `.vimrc` features
-Setup your local .vimrc with a symbolic link to the one in this repo:
-> `ln -sf ${PWD}/.vimrc ~/.vimrc`
 
-* Enable MD-previewer functionality:
-    > `sudo apt-get install -y xdg-utils`
+```bash
+# Install curl (needed for auto-install of Plugin manager when opening ~/.vimrc)
+sudo apt install -y curl
 
+# Enable MD-previewer functionality:
+sudo apt-get install -y xdg-utils
+
+# Setup your local .vimrc with a symbolic link to the one in this repo:
+ln -sf ${PWD}/.vimrc ~/.vimrc
+```
