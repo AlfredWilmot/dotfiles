@@ -16,4 +16,14 @@
 " A minimal .vimrc heavily based on the book
 " 'Practical Vim (2nd Ed.)' by Drew Neil.
 
+" Omni-completion (p.293) is implemented as a file-type plugin
+" default support covers: HTML, HTLM, C, C++, CSS, Javascript, PHP, RUBY, SQL, XML
+set nocompatible
+filetype plugin on
+
+" Setting the colorscheme to something easier on the eyes
+colorscheme slate
+
+" Enabling highlighting of text
+set hls
 
