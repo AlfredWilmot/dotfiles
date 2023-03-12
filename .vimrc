@@ -20,15 +20,20 @@
 " Setting the colorscheme to something easier on the eyes
 	colorscheme desert 
 
+" Ensure you're using a Python3 interpreter in python-mode
+let g:pymode_python = 'python3'
+
+" Set vim to use system-clipboard
+	set clipboard=unnamed
+
 " Hybrid relative line-numbering
 " https://jeffkreeftmeijer.com/vim-number/
-	:set number
-
-	:augroup numbertoggle
-	:  autocmd!
-	:  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu   | endif
-	:  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
-	:augroup END
+	set number
+	augroup numbertoggle
+	  autocmd!
+	  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu   | endif
+	  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
+	augroup END
 
 
 " Prerequisites for using plugins
@@ -52,6 +57,8 @@ call vundle#begin()
 		Plugin 'vim-syntastic/syntastic'
 	" Checks Python code conforms to PEP-8
 		Plugin 'nvie/vim-flake8'
+	" fuzzy file-finder
+		Plugin 'kien/ctrlp.vim'
 call vundle#end()
 
 " another vague requirement
@@ -88,13 +95,13 @@ filetype plugin indent on
 	    \ set fileformat=unix
 
 " proper tab spacing for other file types used for web-development
-	au BufNewFile,BufRead *.js, *.html, *.css
+	au BufNewFile,BufRead *.js, *.html, *.css 
 	    \ set tabstop=2
 	    \ set softtabstop=2
 	    \ set shiftwidth=2
 
 " Flag superfluous whitespaces
-	au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+	"au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 
 " Use the appropriate encoding for Python3
 	set encoding=utf-8
