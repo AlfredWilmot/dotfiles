@@ -18,14 +18,14 @@
 " https://realpython.com/vim-and-python-a-match-made-in-heaven/
 
 " Basic config
-source ${PWD}/.config/basic.vim
+source ~/.vim/.config/basic.vim
 " Python-specific config
-source ${PWD}/.config/python.vim
+source ~/.vim/.config/python.vim
 " Autocmds config
-source ${PWD}/.config/autocmds.vim
+source ~/.vim/.config/autocmds.vim
 " Plugins config
-source ${PWD}/.config/plugins.vim
+source ~/.vim/.config/plugins.vim
 " Project-wide fuzzy-finder
-source ${PWD}/.config/fzf.vim
+source ~/.vim/.config/fzf.vim
 " Project-wide regex-based keyword search
-source ${PWD}/.config/ack.vim
+source ~/.vim/.config/ack.vim
