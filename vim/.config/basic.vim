@@ -1,3 +1,6 @@
+"more sane leader key
+let mapleader = "\<Space>"
+
 " Setting the colorscheme to something easier on the eyes
 colorscheme desert 
 

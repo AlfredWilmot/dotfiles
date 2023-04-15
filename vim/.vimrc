@@ -25,3 +25,7 @@ source ${PWD}/.config/python.vim
 source ${PWD}/.config/autocmds.vim
 " Plugins config
 source ${PWD}/.config/plugins.vim
+" Project-wide fuzzy-finder
+source ${PWD}/.config/fzf.vim
+" Project-wide regex-based keyword search
+source ${PWD}/.config/ack.vim

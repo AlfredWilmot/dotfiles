@@ -19,10 +19,12 @@ call vundle#begin()
 	Plugin 'vim-syntastic/syntastic'
 " Checks Python code conforms to PEP-8
 	Plugin 'nvie/vim-flake8'
-" fuzzy file-finder
-	Plugin 'kien/ctrlp.vim'
+"" fuzzy file-finder
+        Plugin 'junegunn/fzf.vim'
+        Plugin 'junegunn/fzf', { 'do': { -> fzf#install() } }
+"" rip-grep keyword search
+	Plugin 'mileszs/ack.vim'
 call vundle#end()
 
 " another vague requirement
 filetype plugin indent on
-
