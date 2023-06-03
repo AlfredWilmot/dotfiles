@@ -1,4 +1,1 @@
 require("rustychainlink")
-print("hello")
-	
-

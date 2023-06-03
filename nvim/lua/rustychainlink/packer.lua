@@ -18,6 +18,15 @@ return require('packer').startup(function(use)
 	-- Nice syntax highlighting
 	use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
 
+    -- colorscheme
+    use({
+        'rose-pine/neovim',
+        as = 'rose-pine',
+        config = function()
+            vim.cmd('colorscheme rose-pine')
+        end
+    })
+
 	-- git-esque undo branching/history
 	use('mbbill/undotree')
 
