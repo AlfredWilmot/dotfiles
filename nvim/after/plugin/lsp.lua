@@ -1,6 +1,4 @@
-local lsp = require('lsp-zero')
-
-lsp.preset('recommended')
+local lsp = require('lsp-zero').preset({})
 
 -- Convenient auto-completion navigation and selection
 local cmp = require('cmp')
@@ -18,5 +16,9 @@ lsp.setup_nvim_cmp({
 
 -- Remaps for convenient code naviagtion
 -- TODO
+
+lsp.on_attach(function(client, bufnr)
+  lsp.default_keymaps({buffer = bufnr})
+end)
 
 lsp.setup()

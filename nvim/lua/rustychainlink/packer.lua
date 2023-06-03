@@ -5,20 +5,16 @@ vim.cmd [[packadd packer.nvim]]
 
 return require('packer').startup(function(use)
 
-	-- Packer can manage itself
+	--> Packer can manage itself
 	use 'wbthomason/packer.nvim'
-
-	-- Fuzzy-finder utility
+	--> Fuzzy-finder utility
 	use {
 		'nvim-telescope/telescope.nvim', tag = '0.1.1',
-		-- or                            , branch = '0.1.x',
 		requires = { {'nvim-lua/plenary.nvim'} }
 	}
-
-	-- Nice syntax highlighting
+	--> Nice syntax highlighting
 	use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
-
-    -- colorscheme
+    --> colorscheme
     use({
         'rose-pine/neovim',
         as = 'rose-pine',
@@ -26,14 +22,11 @@ return require('packer').startup(function(use)
             vim.cmd('colorscheme rose-pine')
         end
     })
-
-	-- git-esque undo branching/history
+	--> git-esque undo branching/history
 	use('mbbill/undotree')
-
-	-- git stuff
+	--> git stuff
 	use('tpope/vim-fugitive')
-
-	-- language server for autocompletion
+	--> language server for autocompletion
 	use {
 		'VonHeikemen/lsp-zero.nvim',
 		branch = 'v2.x',
