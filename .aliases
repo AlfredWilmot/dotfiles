@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# ------- #
+# GIT GUD #
+# ------- #
+gb() { git branch "$@"; }
+gs() { git status "$@"; }
+gd() { git diff "$@"; }
+ga() { git add "$@"; }
+gl() { git log -n "${1:-1}"; }
+gr() { git rebase -i HEAD~"${1:-1}"; }
+gc() { git commit -m "$*"; }
+gf() { git fetch --all --prune --tags "$@"; }
