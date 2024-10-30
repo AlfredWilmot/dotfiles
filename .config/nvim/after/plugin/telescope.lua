@@ -9,7 +9,6 @@ vim.keymap.set('n', '<leader>ff', function()
 end)
 
 -- "Project-search" grep expressions in workspace (requires rip-grep)
--- vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>fg', function()
     builtin.live_grep({
         hidden = true,
@@ -19,3 +18,6 @@ end)
 
 -- "LSP: go-to the definition of word under cursor
 vim.keymap.set('n', '<leader>fd', builtin.lsp_definitions, {})
+
+-- "LSP: show references for the word under cursor
+vim.keymap.set('n', '<leader>fr', builtin.lsp_references, {})
