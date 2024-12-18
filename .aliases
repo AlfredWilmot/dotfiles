@@ -1,5 +1,28 @@
 #!/usr/bin/env bash
 
+# ------------ #
+# VIEWING DOCS #
+# ------------ #
+view() {
+  case "$(echo "${1}" | awk -F "." '{print $NF}')" in
+    "docx")
+      DOCX="${1}"
+      MD="${DOCX//.docx/.md}"
+      pandoc -t markdown_strict "${DOCX}" -o "${MD}" && nvim "${MD}"
+      ;;
+    "pdf")
+      zathura "${1}"
+      ;;
+    *)
+      if [ "$(file "${1}" | awk -F " " '{print $NF}')" = "text" ]; then
+        nvim "$1"
+      else
+        echo "'${1}' must be a valid text file!"
+      fi
+      ;;
+  esac
+}
+
 # ------- #
 # GIT GUD #
 # ------- #
