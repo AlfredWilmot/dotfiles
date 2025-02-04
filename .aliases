@@ -40,8 +40,8 @@ gf() { git fetch --all --prune --tags "$@"; }
 # ---- #
 encrypt-pdf() {
   if [ "$#" -lt 1 ]; then
-    echo "Usage: encrypt-pdf <SOME_PDF_TO_ENCRYPT>"
-    echo "a qpdf wrapper for quick pdf encryption"
+    echo "Usage: encrypt-pdf <SOME_PDF_TO_ENCRYPT>" >&2
+    echo "a qpdf wrapper for quick pdf encryption" >&2
     return 1
   fi
 
@@ -53,12 +53,12 @@ encrypt-pdf() {
   read -r -p "retype the password: " -s PASS_TEST
   echo ""
   if [ "${PASS}" != "${PASS_TEST}" ]; then
-    echo "Passwords don't match!" 2>&1
+    echo "Passwords don't match!" >&2
     return 1
   fi
 
   if [ -z "${PASS}" ]; then
-    echo "Cannot assign empty password" 2>&1
+    echo "Cannot assign empty password" >&2
     return 1
   fi
 
