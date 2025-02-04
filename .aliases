@@ -34,3 +34,35 @@ gl() { git log -n "${1:-1}"; }
 gr() { git rebase -i HEAD~"${1:-1}"; }
 gc() { git commit -m "$*"; }
 gf() { git fetch --all --prune --tags "$@"; }
+
+# ---- #
+# PDFS #
+# ---- #
+encrypt-pdf() {
+  if [ "$#" -lt 1 ]; then
+    echo "Usage: encrypt-pdf <SOME_PDF_TO_ENCRYPT>"
+    echo "a qpdf wrapper for quick pdf encryption"
+    return 1
+  fi
+
+  INPUT_PDF="$1"
+  OUTPUT_PDF="encrypted-${INPUT_PDF}"
+
+  read -r -p "input a password: " -s PASS
+  echo ""
+  read -r -p "retype the password: " -s PASS_TEST
+  echo ""
+  if [ "${PASS}" != "${PASS_TEST}" ]; then
+    echo "Passwords don't match!" 2>&1
+    return 1
+  fi
+
+  if [ -z "${PASS}" ]; then
+    echo "Cannot assign empty password" 2>&1
+    return 1
+  fi
+
+  qpdf --encrypt "${PASS}" "${PASS}" 256 -- "${INPUT_PDF}" "${OUTPUT_PDF}"
+  echo "Generated encrypted PDF: ${OUTPUT_PDF}"
+  echo "Goodbye!"
+}
