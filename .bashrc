@@ -8,4 +8,5 @@ PS1='[\u@\h \W]\$ '
 alias ls='ls -lah --color=auto'
 alias grep='grep --color=auto'
 
-source "${HOME}/.aliases"
+. "${HOME}/.aliases"
+. "${HOME}/.xprofile"
