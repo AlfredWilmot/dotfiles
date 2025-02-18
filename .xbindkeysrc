@@ -1,0 +1,28 @@
+# A list of keys is in /usr/include/X11/keysym.h and in
+# /usr/include/X11/keysymdef.h
+#
+# List of modifier:
+#   Release, Control, Shift, Mod1 (Alt), Mod2 (NumLock),
+#   Mod3 (CapsLock), Mod4, Mod5 (Scroll).
+
+"flameshot gui -r | xclip -selection clipboard -t image/png"
+    F10
+
+"peek"
+    F11
+
+# Increase volume <F3>
+"wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+"
+   XF86AudioRaiseVolume
+
+# Decrease volume <F2>
+"wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+   XF86AudioLowerVolume
+
+# Mute volume <F1>
+"wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+   XF86AudioMute
+
+# Mute microphone <F4>
+"wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+   XF86AudioMicMute
