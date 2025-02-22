@@ -6,23 +6,23 @@
 #   Mod3 (CapsLock), Mod4, Mod5 (Scroll).
 
 "flameshot gui -r | xclip -selection clipboard -t image/png"
-    F10
+  F10
 
 "peek"
-    F11
+  F11
 
-# Increase volume <F3>
+# Increase volume XF86AudioRaiseVolume
 "wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+"
-   XF86AudioRaiseVolume
+  F3
 
-# Decrease volume <F2>
+# Decrease volume XF86AudioLowerVolume
 "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-   XF86AudioLowerVolume
+  F2
 
-# Mute volume <F1>
+# Mute volume XF86AudioMute
 "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-   XF86AudioMute
+  F1
 
-# Mute microphone <F4>
+# Mute microphone XF86AudioMicMute
 "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
-   XF86AudioMicMute
+  F4
