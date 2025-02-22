@@ -1,0 +1,4 @@
+
+# fix so <del> key works on st
+# (https://wiki.archlinux.org/title/St)
+set enable-keypad on
