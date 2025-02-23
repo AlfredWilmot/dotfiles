@@ -12,3 +12,5 @@ export XDG_CONFIG_HOME="${HOME}/.config"
 
 . "${HOME}/.aliases"
 . "${HOME}/.xprofile"
+
+eval "$(starship init bash)"
