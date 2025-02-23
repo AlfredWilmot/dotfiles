@@ -14,3 +14,5 @@ export XDG_CONFIG_HOME="${HOME}/.config"
 . "${HOME}/.xprofile"
 
 eval "$(starship init bash)"
+
+alias todo="nvim ${HOME}/.todo.md"
