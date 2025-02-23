@@ -1,6 +1,14 @@
-format = '''
-$username$hostname$directory$git_branch $character
-'''
+format = """
+$username\
+$hostname\
+$directory\
+$git_branch\
+$character
+"""
+
+[character]
+success_symbol = '[>](bold green)'
+error_symbol = '[>](bold red)'
 
 [username]
 style_user = 'white bold'
@@ -15,9 +23,10 @@ disabled = false
 
 [directory]
 style = 'cyan bold dimmed'
-format='\[[$path]($style)[$read_only]($read_only_style)\] '
+format='[$path]($style)[$read_only]($read_only_style) '
+truncate_to_repo = false
 
 [git_branch]
-symbol = '🌱 '
+format = '\([$symbol$branch(:$remote_branch)]($style)\) '
 truncation_length = 4
 truncation_symbol = ''
