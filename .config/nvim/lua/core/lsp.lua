@@ -54,6 +54,8 @@ require('lspconfig').clangd.setup {
 require('lspconfig').bashls.setup {
   capabilities = capabilities
 }
+
+-- https://luals.github.io/wiki/configuration/#neovim
 require('lspconfig').lua_ls.setup {
   capabilities = capabilities,
   settings = {
@@ -72,7 +74,8 @@ require('lspconfig').lua_ls.setup {
       workspace = {
         library = {
           vim.fn.expand'~/.luarocks/share/lua/5.3',
-          '/usr/share/lua/5.3'
+          '/usr/share/lua/5.3',
+          '${3rd}/love2d/library',
         }
       }
     }
