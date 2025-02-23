@@ -1,9 +1,30 @@
 #!/usr/bin/env bash
 
+# --------------- #
+# FILE NAVIGATION #
+# --------------- #
+alias ls='ls --color=auto -lh'
+alias grep='grep --color=auto'
+alias vi='nvim $(fzf)'
+
+# ----- #
+# UTILS #
+# ----- #
+alias todo='nvim ${HOME}/.todo.md'
+
+function camdown() {
+  if (set -x; find /dev -iname 'video*' -exec fuser -k {} \;);
+  then
+    echo "All processes using video-devices were killed"
+  else
+    echo 2>&1 "Failed to kill processes using video-devices"
+  fi
+}
+
 # ------------ #
 # VIEWING DOCS #
 # ------------ #
-view() {
+function view() {
   case "$(echo "${1}" | awk -F "." '{print $NF}')" in
     "docx")
       DOCX="${1}"
@@ -26,19 +47,19 @@ view() {
 # ------- #
 # GIT GUD #
 # ------- #
-gb() { git branch "$@"; }
-gs() { git status "$@"; }
-gd() { git diff "$@"; }
-ga() { git add "$@"; }
-gl() { git log -n "${1:-1}"; }
-gr() { git rebase -i HEAD~"${1:-1}"; }
-gc() { git commit -m "$*"; }
-gf() { git fetch --all --prune --tags "$@"; }
+function gb() { git branch "$@"; }
+function gs() { git status "$@"; }
+function gd() { git diff "$@"; }
+function ga() { git add "$@"; }
+function gl() { git log -n "${1:-1}"; }
+function gr() { git rebase -i HEAD~"${1:-1}"; }
+function gc() { git commit -m "$*"; }
+function gf() { git fetch --all --prune --tags "$@"; }
 
 # ---- #
 # PDFS #
 # ---- #
-encrypt-pdf() {
+function encrypt-pdf() {
   if [ "$#" -lt 1 ]; then
     echo "Usage: encrypt-pdf <SOME_PDF_TO_ENCRYPT>" >&2
     echo "a qpdf wrapper for quick pdf encryption" >&2
