@@ -11,6 +11,7 @@ alias vi='nvim $(fzf)'
 # UTILS #
 # ----- #
 alias todo='nvim ${HOME}/.todo.md'
+alias cheese='vlc v4l2:///dev/video0'
 
 function camdown() {
   if (set -x; find /dev -iname 'video*' -exec fuser -k {} \;);
