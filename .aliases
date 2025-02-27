@@ -5,7 +5,7 @@
 # --------------- #
 alias ls='ls --color=auto -lh'
 alias grep='grep --color=auto'
-alias vi='nvim $(fzf)'
+alias vi='fzf --bind "enter:become(nvim {})"'
 
 # hop to the furthest directory matched by the fuzzy finder
 function fcd() {
