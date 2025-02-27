@@ -7,6 +7,11 @@ alias ls='ls --color=auto -lh'
 alias grep='grep --color=auto'
 alias vi='nvim $(fzf)'
 
+# hop to the furthest directory matched by the fuzzy finder
+function fcd() {
+  cd "./$(fzf | sed -n 's@^\(.*\)/[^/]*$@\1@p')" || cd .
+}
+
 # ----- #
 # UTILS #
 # ----- #
