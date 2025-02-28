@@ -93,3 +93,40 @@ function encrypt-pdf() {
   echo "Generated encrypted PDF: ${OUTPUT_PDF}"
   echo "Goodbye!"
 }
+
+# --------- #
+# BACKLIGHT #
+# --------- #
+function backlight() {
+
+  declare -i MIN MAX NOW
+
+  MIN=300
+  MAX="$(sudo cat /sys/class/backlight/**/max_brightness)"
+  NOW="$(sudo cat /sys/class/backlight/**/brightness)"
+
+  _usage() {
+    echo >&2 "Usage: backlight [+|-]val"
+    echo >&2 "inc/decrease backlight brightness by some val"
+  }
+
+  _set() {
+    echo "$1" | sudo tee /sys/class/backlight/**/brightness
+  }
+
+  # input must be a signed int
+  if ! [[ $1 =~ ^[+-][0-9]+$ ]]; then
+    _usage
+    return 1
+  fi
+
+  printf "Setting backlight to: "
+  if [ $((NOW + $1)) -gt $((MAX)) ]; then
+    _set $((MAX))
+  elif [ $((NOW + $1)) -lt $((MIN)) ]; then
+    _set $((MIN))
+  else
+    _set $((NOW + $1))
+  fi
+  return 0
+}
