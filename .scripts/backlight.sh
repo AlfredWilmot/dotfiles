@@ -1,0 +1,38 @@
+#!/bin/bash
+# control screen brightness
+
+set -e
+
+declare -i MIN MAX NOW
+
+# determine the max/min and current brightness values
+read -r MAX < /sys/class/backlight/**/max_brightness
+read -r MIN <<< "$(echo "${MAX}" | awk '{print int($1*0.2)}')" # i.e. 20% of MAX
+read -r NOW < /sys/class/backlight/**/brightness
+
+_usage() {
+  echo >&2 "Usage: $0 [+|-]val"
+  echo >&2 "inc/decrease backlight brightness by some val"
+  exit 1
+}
+
+# input must be an in preceded by a sign (e.g. -10 or +100)
+if ! [[ $1 =~ ^[+-][0-9]+$ ]]; then
+  _usage
+fi
+
+
+printf "Setting backlight to: "
+
+_set() { echo "$1" | tee /sys/class/backlight/**/brightness; }
+
+# ensure the final value is within the valid range
+if [ $((NOW + $1)) -gt $((MAX)) ]; then
+  _set $((MAX))
+elif [ $((NOW + $1)) -lt $((MIN)) ]; then
+  _set $((MIN))
+else
+  _set $((NOW + $1))
+fi
+
+exit 0
