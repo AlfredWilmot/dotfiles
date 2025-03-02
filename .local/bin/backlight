@@ -7,7 +7,7 @@ declare -i MIN MAX NOW
 
 # determine the max/min and current brightness values
 read -r MAX < /sys/class/backlight/**/max_brightness
-read -r MIN <<< "$(echo "${MAX}" | awk '{print int($1*0.2)}')" # i.e. 20% of MAX
+read -r MIN <<< "$(echo "${MAX}" | awk '{print int($1*0.05)}')" # i.e. 5% of MAX
 read -r NOW < /sys/class/backlight/**/brightness
 
 _usage() {
