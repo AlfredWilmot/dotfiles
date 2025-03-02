@@ -15,3 +15,6 @@ eval "$(starship init bash)"
 
 # run single tmux session on the current shell
 [ -z "${TMUX}" ] && tmux
+
+# include user utils in path
+PATH="${PATH}:${HOME}/.local/bin"
