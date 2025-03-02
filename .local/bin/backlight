@@ -11,7 +11,7 @@ read -r MIN <<< "$(echo "${MAX}" | awk '{print int($1*0.2)}')" # i.e. 20% of MAX
 read -r NOW < /sys/class/backlight/**/brightness
 
 _usage() {
-  echo >&2 "Usage: $0 [+|-]val"
+  echo >&2 "Usage: backlight [+|-]val"
   echo >&2 "inc/decrease backlight brightness by some val"
   exit 1
 }
@@ -24,7 +24,7 @@ fi
 
 printf "Setting backlight to: "
 
-_set() { echo "$1" | tee /sys/class/backlight/**/brightness; }
+_set() { echo "$1" | sudo tee /sys/class/backlight/**/brightness; }
 
 # ensure the final value is within the valid range
 if [ $((NOW + $1)) -gt $((MAX)) ]; then
