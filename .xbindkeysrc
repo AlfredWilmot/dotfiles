@@ -5,9 +5,11 @@
 #   Release, Control, Shift, Mod1 (Alt), Mod2 (NumLock),
 #   Mod3 (CapsLock), Mod4, Mod5 (Scroll).
 
+# Screenshot
 "flameshot gui -r | xclip -selection clipboard -t image/png"
   F10
 
+# Screenrecord
 "peek"
   F11
 
@@ -26,3 +28,7 @@
 # Mute microphone XF86AudioMicMute
 "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
   F4
+
+# Lockscreen
+"i3lock"
+  Control+Shift + l
