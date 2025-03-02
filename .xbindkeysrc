@@ -32,3 +32,11 @@
 # Lockscreen
 "i3lock"
   Control+Shift + l
+
+# Increase screen brightness
+"backlight +100"
+  F6
+
+# Decrease screen brightness
+"backlight -100"
+  F5
