@@ -21,10 +21,8 @@ if ! [[ $1 =~ ^[+-][0-9]+$ ]]; then
   _usage
 fi
 
-
-printf "Setting backlight to: "
-
 _set() { echo "$1" | sudo tee /sys/class/backlight/**/brightness; }
+printf "Setting backlight to: "
 
 # ensure the final value is within the valid range
 if [ $((NOW + $1)) -gt $((MAX)) ]; then
