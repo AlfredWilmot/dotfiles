@@ -22,4 +22,4 @@ PATH="${PATH}:${HOME}/.local/bin"
 # use pyenv for specifying user default Python version, if applicable
 export PYENV_ROOT="${HOME}/.pyenv"
 [[ -d "${PYENV_ROOT}/bin" ]] && export PATH="${PYENV_ROOT}/bin:${PATH}"
-which pyenv > /dev/null && eval "$(pyenv init -)"
+which pyenv &> /dev/null && eval "$(pyenv init -)"
