@@ -34,9 +34,9 @@
   Control+Shift + l
 
 # Increase screen brightness
-"backlight +100"
+"backlight +20"
   F6
 
 # Decrease screen brightness
-"backlight -100"
+"backlight -20"
   F5
