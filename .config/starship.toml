@@ -3,6 +3,7 @@ $username\
 $hostname\
 $directory\
 $git_branch\
+$python\
 $character
 """
 
@@ -32,3 +33,6 @@ truncate_to_repo = false
 format = '\([$symbol$branch(:$remote_branch)]($style)\) '
 truncation_length = 4
 truncation_symbol = ''
+
+[python]
+format = '[(\($virtualenv\) )]($style)'
