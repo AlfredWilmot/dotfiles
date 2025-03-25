@@ -93,3 +93,8 @@ function encrypt-pdf() {
   echo "Generated encrypted PDF: ${OUTPUT_PDF}"
   echo "Goodbye!"
 }
+
+# ----- #
+# GAMES #
+# ----- #
+alias minesweeper='docker run --rm -it ghcr.io/cpcloud/minesweep-rs:latest'
