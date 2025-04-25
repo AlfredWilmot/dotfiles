@@ -13,8 +13,8 @@ export XDG_CONFIG_HOME="${HOME}/.config"
 # beautify shell-prompt
 eval "$(starship init bash)"
 
-# run single tmux session on the current shell
-[ -z "${TMUX}" ] && tmux
+# run single tmux session in the current shell
+[ -z "${TMUX}" ] && exec tmux
 
 # include user utils in path
 PATH="${PATH}:${HOME}/.local/bin"
