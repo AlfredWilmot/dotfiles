@@ -18,22 +18,23 @@ return require('packer').startup(function(use)
 		requires = { {'nvim-lua/plenary.nvim'} }
 	}
 
-    --> https://github.com/iamcco/markdown-preview.nvim
-    use({
-        "iamcco/markdown-preview.nvim",
-        run = function() vim.fn["mkdp#util#install"]() end,
-    })
+  --> https://github.com/iamcco/markdown-preview.nvim
+  use({
+      "iamcco/markdown-preview.nvim",
+      run = function() vim.fn["mkdp#util#install"]() end,
+  })
 
 	--> Nice syntax highlighting
 	use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
-    --> colorscheme
-    use({
-        'rose-pine/neovim',
-        as = 'rose-pine',
-        config = function()
-            vim.cmd('colorscheme rose-pine')
-        end
-    })
+
+  --> colorscheme
+  use({
+      'rose-pine/neovim',
+      as = 'rose-pine',
+      config = function()
+          vim.cmd('colorscheme rose-pine')
+      end
+  })
 
 	--> git-esque undo branching/history
 	use('mbbill/undotree')
