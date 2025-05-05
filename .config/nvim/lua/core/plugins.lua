@@ -34,26 +34,28 @@ return require('packer').startup(function(use)
             vim.cmd('colorscheme rose-pine')
         end
     })
+
 	--> git-esque undo branching/history
 	use('mbbill/undotree')
 
 	--> language server for autocompletion
   use 'neovim/nvim-lspconfig'
 
-  -- rust tools
+  --> rust tools
   use 'simrat39/rust-tools.nvim'
-      -- Completion framework:
-    use 'hrsh7th/nvim-cmp'
 
-    -- LSP completion source:
-    use 'hrsh7th/cmp-nvim-lsp'
+  --> Completion framework:
+  use 'hrsh7th/nvim-cmp'
 
-    -- Useful completion sources:
-    use 'hrsh7th/cmp-nvim-lua'
-    use 'hrsh7th/cmp-nvim-lsp-signature-help'
-    use 'hrsh7th/cmp-vsnip'
-    use 'hrsh7th/cmp-path'
-    use 'hrsh7th/cmp-buffer'
-    use 'hrsh7th/vim-vsnip'
+  --> LSP completion source:
+  use 'hrsh7th/cmp-nvim-lsp'
+
+  --> Useful completion sources:
+  use 'hrsh7th/cmp-nvim-lua'
+  use 'hrsh7th/cmp-nvim-lsp-signature-help'
+  use 'hrsh7th/cmp-vsnip'
+  use 'hrsh7th/cmp-path'
+  use 'hrsh7th/cmp-buffer'
+  use 'hrsh7th/vim-vsnip'
 
 end)
