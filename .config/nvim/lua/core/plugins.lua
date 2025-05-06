@@ -59,4 +59,15 @@ return require('packer').startup(function(use)
   use 'hrsh7th/cmp-buffer'
   use 'hrsh7th/vim-vsnip'
 
+  --> DAP
+  use({
+    'mfussenegger/nvim-dap',
+    requires = { {'rcarriga/nvim-dap-ui', 'nvim-neotest/nvim-nio'} },
+    config = function()
+      local dap = require("dap")
+      vim.keymap.set('n', '<Leader>dc', function() dap.continue() end)
+      vim.keymap.set('n', '<Leader>dt', function() dap.toggle_breakpoint() end)
+    end
+  })
+
 end)
