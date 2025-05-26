@@ -30,6 +30,9 @@ vim.opt.incsearch = true
 -- easier on the eyes
 vim.opt.termguicolors = true
 
+-- colorscheme
+vim.cmd 'colorscheme retrobox'
+
 -- keeps some space below the cursor line
 vim.opt.scrolloff = 8
 
@@ -38,8 +41,6 @@ vim.opt.colorcolumn = "80"
 
 -- misc
 vim.opt.updatetime = 50
-
-vim.cmd.colorscheme = "onedark"
 
 -- highlight trailing whitespace
 vim.cmd [[highlight TrailingWS ctermbg=red guibg=red | match TrailingWS /\s\+$/]]
