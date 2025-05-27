@@ -47,3 +47,6 @@ vim.cmd [[highlight TrailingWS ctermbg=red guibg=red | match TrailingWS /\s\+$/]
 
 -- format json
 vim.keymap.set("n", "<leader>fj", ":%!jq .<CR>", opts)
+
+-- ensure gdb debugger is available
+vim.cmd('packadd! termdebug')
