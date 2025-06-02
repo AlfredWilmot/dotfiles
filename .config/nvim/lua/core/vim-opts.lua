@@ -63,6 +63,7 @@ vim.keymap.set("n", ",A", ":Asm<CR>", opts)
 
 -- interact with the debugging session
 vim.keymap.set("n", ",w", ":call TermDebugSendCommand('where')<CR>")
+vim.keymap.set("n", ",e", ":call TermDebugSendCommand('exit')")
 vim.keymap.set("n", ",b", ":Break<CR>", opts)
 vim.keymap.set("n", ",c", ":Continue<CR>", opts)
 vim.keymap.set("n", ",s", ":Step<CR>", opts)
