@@ -52,8 +52,6 @@ vim.keymap.set("n", "<leader>fj", ":%!jq .<CR>", opts)
 vim.cmd('packadd! termdebug')
 vim.g.termdebug_wide = 1
 vim.g.termdebugger = "rust-gdb"
-vim.g.termdebug_variables_window = 15
-vim.g.termdebug_disasm_window = 15
 
 -- navigate between the various debugging panes
 vim.keymap.set("n", ",S", ":Source<CR>", opts)
@@ -63,7 +61,7 @@ vim.keymap.set("n", ",A", ":Asm<CR>", opts)
 
 -- interact with the debugging session
 vim.keymap.set("n", ",w", ":call TermDebugSendCommand('where')<CR>")
-vim.keymap.set("n", ",e", ":call TermDebugSendCommand('exit')")
+vim.keymap.set("n", ",e", ":Evaluate<CR>", opts)
 vim.keymap.set("n", ",b", ":Break<CR>", opts)
 vim.keymap.set("n", ",c", ":Continue<CR>", opts)
 vim.keymap.set("n", ",s", ":Step<CR>", opts)
