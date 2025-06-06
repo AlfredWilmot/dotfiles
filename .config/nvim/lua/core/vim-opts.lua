@@ -30,6 +30,9 @@ vim.opt.incsearch = true
 -- easier on the eyes
 vim.opt.termguicolors = true
 
+-- colorscheme
+vim.cmd 'colorscheme retrobox'
+
 -- keeps some space below the cursor line
 vim.opt.scrolloff = 8
 
@@ -39,10 +42,30 @@ vim.opt.colorcolumn = "80"
 -- misc
 vim.opt.updatetime = 50
 
-vim.cmd.colorscheme = "onedark"
-
 -- highlight trailing whitespace
 vim.cmd [[highlight TrailingWS ctermbg=red guibg=red | match TrailingWS /\s\+$/]]
 
 -- format json
 vim.keymap.set("n", "<leader>fj", ":%!jq .<CR>", opts)
+
+-- ensure gdb debugger is available
+vim.cmd('packadd! termdebug')
+vim.g.termdebug_wide = 1
+vim.g.termdebugger = "rust-gdb"
+
+-- navigate between the various debugging panes
+vim.keymap.set("n", ",S", ":Source<CR>", opts)
+vim.keymap.set("n", ",G", ":Gdb<CR>i", opts)
+vim.keymap.set("n", ",V", ":Var<CR>", opts)
+vim.keymap.set("n", ",A", ":Asm<CR>", opts)
+
+-- interact with the debugging session
+vim.keymap.set("n", ",w", ":call TermDebugSendCommand('where')<CR>")
+vim.keymap.set("n", ",e", ":Evaluate<CR>", opts)
+vim.keymap.set("n", ",b", ":Break<CR>", opts)
+vim.keymap.set("n", ",c", ":Continue<CR>", opts)
+vim.keymap.set("n", ",s", ":Step<CR>", opts)
+vim.keymap.set("n", ",n", ":Next<CR>", opts)
+
+-- let <ESC> key be used to exit an embedded terminal
+vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]])
