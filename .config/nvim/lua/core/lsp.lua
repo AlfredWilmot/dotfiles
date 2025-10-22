@@ -41,22 +41,27 @@ cmp.setup({
   })
 })
 
+-------------------------------
+-- CONIGURE LANGUAGE SERVERS --
+-------------------------------
 
 -- The nvim-cmp almost supports LSP's capabilities so You should advertise it to LSP servers..
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
+local lspconfig = vim.lsp.config
 
 -- configure LSPs to use nvim-cmp as a completion engine
 -- see valid names here:
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
-require('lspconfig').clangd.setup {
-  capabilities = capabilities
-}
-require('lspconfig').bashls.setup {
-  capabilities = capabilities
-}
+
+lspconfig('clangd', {capabilities = capabilities})
+lspconfig('bashls', {capabilities = capabilities})
+lspconfig('pyright', {capabilities = capabilities})
+lspconfig('ruff', {capabilities = capabilities})
+lspconfig('html', {capabilities = capabilities})
+lspconfig('gopls', {capabilities = capabilities})
 
 -- https://luals.github.io/wiki/configuration/#neovim
-require('lspconfig').lua_ls.setup {
+lspconfig('lua_ls', {
   capabilities = capabilities,
   settings = {
     Lua = {
@@ -80,19 +85,41 @@ require('lspconfig').lua_ls.setup {
       }
     }
   }
-}
-require('lspconfig').rust_analyzer.setup {
-  capabilities = capabilities
-}
-require('lspconfig').pyright.setup {
-  capabilities = capabilities
-}
-require('lspconfig').ruff.setup {
-  capabilities = capabilities
-}
-require('lspconfig').html.setup {
-  capabilities = capabilities
-}
-require('lspconfig').gopls.setup {
-  capabilities = capabilities
-}
+})
+lspconfig('rust_analyzer', {
+  capabilities = capabilities,
+  settings = {
+    ['rust-analyzer'] = {
+      check = {
+        command = "clippy";
+      },
+      diagnostics = {
+        enable = true;
+      }
+    }
+  }
+})
+lspconfig('rust-tools', {
+  server = {
+    on_attach = function(_, bufnr)
+      -- Hover actions
+      vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
+      -- Code action groups
+      vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+    end,
+  },
+})
+
+----------------------------------------
+-- ENABLE CONFIGURED LANGUAGE SERVERS --
+----------------------------------------
+local lspenable = vim.lsp.enable
+lspenable('clangd')
+lspenable('bashls')
+lspenable('lua_ls')
+lspenable('rust_analyzer')
+lspenable('rust-tools')
+lspenable('pyright')
+lspenable('ruff')
+lspenable('html')
+lspenable('gopls')
