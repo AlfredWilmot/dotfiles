@@ -21,3 +21,10 @@ vim.keymap.set('n', '<leader>fd', builtin.lsp_definitions, {})
 
 -- "LSP: show references for the word under cursor
 vim.keymap.set('n', '<leader>fr', builtin.lsp_references, {})
+
+-- https://smarttech101.com/nvim-lsp-diagnostics-keybindings-signs-virtual-texts
+--
+-- diagnostics - find
+vim.keymap.set('n', '<leader>df', builtin.diagnostics, {})
+-- diagnostics - open
+vim.api.nvim_set_keymap('n', '<leader>do', '<cmd>lua vim.diagnostic.open_float()<CR>', { noremap = true, silent = true })
