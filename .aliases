@@ -97,4 +97,8 @@ function encrypt-pdf() {
 # ----- #
 # GAMES #
 # ----- #
-alias minesweeper='docker run --rm -it ghcr.io/cpcloud/minesweep-rs:latest'
+
+# sweep mines on the go!
+function minesweeper() {
+  docker run --rm -it --network=none ghcr.io/cpcloud/minesweep-rs:latest "$@"
+}
