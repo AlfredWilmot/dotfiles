@@ -55,10 +55,11 @@ local lspconfig = vim.lsp.config
 
 lspconfig('clangd', {capabilities = capabilities})
 lspconfig('bashls', {capabilities = capabilities})
-lspconfig('pyright', {capabilities = capabilities})
+lspconfig('ty', {capabilities = capabilities})
 lspconfig('ruff', {capabilities = capabilities})
 lspconfig('html', {capabilities = capabilities})
 lspconfig('gopls', {capabilities = capabilities})
+
 
 -- https://luals.github.io/wiki/configuration/#neovim
 lspconfig('lua_ls', {
@@ -110,6 +111,11 @@ lspconfig('rust-tools', {
   },
 })
 
+-- https://clangd.llvm.org/installation.html#neovim-built-in-lsp-client
+lspconfig('clangd', {
+  cmd = {'clangd', '--background-index', '--clang-tidy', '--log=verbose'},
+})
+
 ----------------------------------------
 -- ENABLE CONFIGURED LANGUAGE SERVERS --
 ----------------------------------------
@@ -119,7 +125,7 @@ lspenable('bashls')
 lspenable('lua_ls')
 lspenable('rust_analyzer')
 lspenable('rust-tools')
-lspenable('pyright')
+lspenable('ty')
 lspenable('ruff')
 lspenable('html')
 lspenable('gopls')

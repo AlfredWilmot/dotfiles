@@ -27,3 +27,6 @@ which pyenv &> /dev/null && eval "$(pyenv init -)"
 # env vars for cargo
 export CARGO_HOME="${HOME}/.cargo"
 export PATH="${PATH}:${CARGO_HOME}/bin"
+
+# env vars for go
+export PATH="${PATH}:${HOME}/go/bin"
