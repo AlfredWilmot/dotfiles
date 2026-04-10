@@ -1,0 +1,75 @@
+#!/usr/bin/env bash
+
+# disallow unset vars, exit on error, propagate errors through pipes
+set -ue -o pipefail
+
+SEARCHDIR="${PWD}"
+declare PATTERN=""
+declare REPLACEMENT=""
+
+usage() {
+  echo "Usage: $(basename "${0}") [OPTION]... PATTERN REPLACEMENT" 2>&1
+  echo "Find and replace text in files." 2>&1
+  echo "" 2>&1
+  echo "OPTIONS:" 2>&1
+  echo "  -f, --file   <comma-separated-file-types> (defaults to all non-binary files)" 2>&1
+  echo "  -d, --dir    <search-directory>           (defaults to current dir)" 2>&1
+  echo "" 2>&1
+  echo "EXAMPLE: change -f rs,md,py -d src/ ^.*let get" 2>&1
+  exit 1
+}
+
+while [ "${#}" -gt 1 ]; do
+  case "${1}" in
+    # what file-types should be modified?
+    -f | --files)
+      _IFS="${IFS}"
+      IFS=,
+      read -ra FILES <<< "${2}"
+      for file in "${FILES[@]}"; do
+        CMD+="--include='*.${file}' "
+      done
+      IFS="${_IFS}"
+      shift; shift
+      ;;
+   # what dir should we look in for those files?
+    -d | --dir)
+      SEARCHDIR="${2}"
+      shift; shift
+      ;;
+    -h | --help)
+      usage
+      ;;
+    *)
+      PATTERN="${1}"
+      REPLACEMENT="${2}"
+      shift; shift
+      ;;
+  esac
+done
+
+[ "${PATTERN}" == "" ] && usage
+
+#NOTE: ANSI from colors messes-up piping filenames
+declare GREP="grep -RIlE --color=never  '${PATTERN}' ${SEARCHDIR} "
+PREVIEW=(
+  "printf '\n%s [${PATTERN} --> ${REPLACEMENT}]\n' {}; "
+  "sed -n 's/${PATTERN}/${REPLACEMENT}/g p' {} "
+)
+PREVIEW_CMD="${GREP} | xargs -I {} sh -c \"${PREVIEW[*]}\" "
+echo "${PREVIEW_CMD}" 1>&2
+eval "${PREVIEW_CMD}"
+
+
+CMD2="${GREP} | xargs -P 4 -I {} sed -i 's/${PATTERN}/${REPLACEMENT}/g' {}"
+
+read -rp "Proceed?" ANS
+case "${ANS}" in
+  y|Y|[Yy][eE][sS])
+    eval "${CMD2}"
+    echo "Done" 1>&2
+    ;;
+  *)
+    echo "Fine, suit yourself!" 1>&2
+    ;;
+esac
