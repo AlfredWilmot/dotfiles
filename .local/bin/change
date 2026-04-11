@@ -50,26 +50,26 @@ while [ "${#}" -gt 1 ]; do
 done
 [ "${PATTERN}" == "" ] && usage
 
-# grep opts: recursive, non-binary, list-files, extended-regex
-# NOTE: ANSI colors for grep messes-up piping filenames
-declare GREP="grep -RIlE --color=never  '${PATTERN}' ${SEARCHDIR} "
-GRN=$'\033[1;32m'
-RED=$'\033[1;31m'
-NC=$'\033[0m' # No Color
+# grep opts: recursive, non-binary, list-files, extended-regex, null-byte terminated
+# NOTE: ANSI colors from grep messes-up piping filenames
+GREP="grep -RIlEZ --color=never  '${PATTERN}' ${SEARCHDIR} "
+
+# highlight pattern and replacement to show exact part of line that will change
+GRN=$'\033[1;32m'; RED=$'\033[1;31m'; NC=$'\033[0m'
 PREVIEW=(
   "printf '\n%s [${RED}${PATTERN}${NC} --> ${GRN}${REPLACEMENT}${NC}]\n' {}; "
   "sed -n 's@${PATTERN}@${GRN}${REPLACEMENT}${NC}@g p' {}; "
 )
 # NOTE: use single process for first xarg call to keep preview output coherent
-PREVIEW_CMD="${GREP} | xargs -I {} sh -c \"${PREVIEW[*]}\" "
+PREVIEW_CMD="${GREP} | xargs -0 -I {} sh -c \"${PREVIEW[*]}\" "
 echo "${PREVIEW_CMD}" 1>&2
 eval "${PREVIEW_CMD}"
 
-read -rp "Proceed?" ANS
-case "${ANS}" in
+read -rp "Proceed?" SVAR
+case "${SVAR}" in
   y|Y|[Yy][eE][sS])
-    eval "${GREP} | xargs -P ${MAX_PROCS} -I {} sed -i 's/${PATTERN}/${REPLACEMENT}/g' {}"
-    echo "Done" 1>&2
+    eval "${GREP} | xargs -0 -P ${MAX_PROCS} -I {} sed -i 's/${PATTERN}/${REPLACEMENT}/g' {}"
+    echo "Done!" 1>&2
     ;;
   *)
     echo "Fine, suit yourself!" 1>&2
