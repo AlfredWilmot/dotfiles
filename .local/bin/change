@@ -62,10 +62,12 @@ PREVIEW=(
 )
 # NOTE: use single process for first xarg call to keep preview output coherent
 PREVIEW_CMD="${GREP} | xargs -0 -I {} sh -c \"${PREVIEW[*]}\" "
-echo "${PREVIEW_CMD}" 1>&2
-eval "${PREVIEW_CMD}"
 
-read -rp "Proceed?" SVAR
+# less opts: auto exit less if all text fits on screen, retain ANSI colors,
+#            truncate long lines, dont clear, dont clear screen when done
+less -FRSX < <(eval "${PREVIEW_CMD}")
+
+read -rp "Apply changes [y|n]? " SVAR
 case "${SVAR}" in
   y|Y|[Yy][eE][sS])
     eval "${GREP} | xargs -0 -P ${MAX_PROCS} -I {} sed -i 's/${PATTERN}/${REPLACEMENT}/g' {}"
