@@ -4,18 +4,19 @@
 set -ue -o pipefail
 
 SEARCHDIR="${PWD}"
-declare PATTERN=""
-declare REPLACEMENT=""
+PATTERN=""
+REPLACEMENT=""
+MAX_PROCS=4
 
 usage() {
   echo "Usage: $(basename "${0}") [OPTION]... PATTERN REPLACEMENT" 2>&1
   echo "Find and replace text in files." 2>&1
   echo "" 2>&1
   echo "OPTIONS:" 2>&1
-  echo "  -f, --file   <comma-separated-file-types> (defaults to all non-binary files)" 2>&1
-  echo "  -d, --dir    <search-directory>           (defaults to current dir)" 2>&1
+  echo "  -f, --file   <comma-separated-file-types> (default: all non-binary files)" 2>&1
+  echo "  -d, --dir    <search-directory>           (default: current dir)" 2>&1
   echo "" 2>&1
-  echo "EXAMPLE: change -f rs,md,py -d src/ ^.*let get" 2>&1
+  echo "EXAMPLE: change -f rs,md,py,c -d src/ ^.*let get" 2>&1
   exit 1
 }
 
@@ -47,26 +48,27 @@ while [ "${#}" -gt 1 ]; do
       ;;
   esac
 done
-
 [ "${PATTERN}" == "" ] && usage
 
-#NOTE: ANSI from colors messes-up piping filenames
+# grep opts: recursive, non-binary, list-files, extended-regex
+# NOTE: ANSI colors for grep messes-up piping filenames
 declare GREP="grep -RIlE --color=never  '${PATTERN}' ${SEARCHDIR} "
+GRN=$'\033[1;32m'
+RED=$'\033[1;31m'
+NC=$'\033[0m' # No Color
 PREVIEW=(
-  "printf '\n%s [${PATTERN} --> ${REPLACEMENT}]\n' {}; "
-  "sed -n 's/${PATTERN}/${REPLACEMENT}/g p' {} "
+  "printf '\n%s [${RED}${PATTERN}${NC} --> ${GRN}${REPLACEMENT}${NC}]\n' {}; "
+  "sed -n 's@${PATTERN}@${GRN}${REPLACEMENT}${NC}@g p' {}; "
 )
+# NOTE: use single process for first xarg call to keep preview output coherent
 PREVIEW_CMD="${GREP} | xargs -I {} sh -c \"${PREVIEW[*]}\" "
 echo "${PREVIEW_CMD}" 1>&2
 eval "${PREVIEW_CMD}"
 
-
-CMD2="${GREP} | xargs -P 4 -I {} sed -i 's/${PATTERN}/${REPLACEMENT}/g' {}"
-
 read -rp "Proceed?" ANS
 case "${ANS}" in
   y|Y|[Yy][eE][sS])
-    eval "${CMD2}"
+    eval "${GREP} | xargs -P ${MAX_PROCS} -I {} sed -i 's/${PATTERN}/${REPLACEMENT}/g' {}"
     echo "Done" 1>&2
     ;;
   *)
