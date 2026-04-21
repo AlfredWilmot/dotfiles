@@ -1,4 +1,0 @@
-require("core.vim-opts")
-require("core.plugins")
-require("core.tree-sitter")
-require("core.lsp")
