@@ -39,6 +39,8 @@ vim.pack.add({
   -- LSP
   { src = 'https://github.com/neovim/nvim-lspconfig'},
   { src = 'https://github.com/mrcjkb/rustaceanvim', version = vim.version.range('^9')},
+  { src = 'https://github.com/mason-org/mason.nvim'},
+  { src = 'https://github.com/mason-org/mason-lspconfig.nvim'},
 
   -- Syntax highlighting
   { src = 'https://github.com/nvim-treesitter/nvim-treesitter'},
@@ -47,12 +49,24 @@ vim.pack.add({
 
 require('mini.basics').setup()
 require('mini.completion').setup()
+require('mason').setup()
 
 -- to view an exhautive list of all natively avilable LSPs ':help lspconfig-all'
-vim.lsp.enable({
-  'lua_ls',
-  'pyright',
-  'bashls',
-  'clangd',
-  'gopls'
+require("mason-lspconfig").setup({
+  ensure_installed = {
+    "lua_ls",
+    "pyright",
+    "bashls",
+    "clangd",
+    "gopls",
+    "jinja_lsp",
+    "ansiblels"
+  },
 })
+
+-- registering filetypes to activate relevant LSPs
+vim.filetype.add {
+  extension = {
+    jinja = 'jinja', jinja2 = 'jinja', j2 = 'jinja',
+  },
+}
