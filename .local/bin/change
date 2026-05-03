@@ -9,16 +9,18 @@ REPLACEMENT=""
 MAX_PROCS=4
 
 usage() {
-  echo "Usage: $(basename "${0}") [OPTION]... PATTERN REPLACEMENT" 2>&1
-  echo "Find and replace text in files." 2>&1
-  echo "" 2>&1
-  echo "OPTIONS:" 2>&1
-  echo "  -f, --file   <comma-separated-file-types> (default: all non-binary files)" 2>&1
-  echo "  -d, --dir    <search-directory>           (default: current dir)" 2>&1
-  echo "" 2>&1
-  echo "EXAMPLE: change -f rs,md,py,c -d src/ ^.*let get" 2>&1
+  echo "Usage: $(basename "${0}") [OPTION]... PATTERN REPLACEMENT" 1>&2
+  echo "Find and replace text in files." 1>&2
+  echo "" 1>&2
+  echo "OPTIONS:" 1>&2
+  echo "  -f, --file   <comma-separated-file-types> (default: all non-binary files)" 1>&2
+  echo "  -d, --dir    <search-directory>           (default: current dir)" 1>&2
+  echo "" 1>&2
+  echo "EXAMPLE: change -f rs,md,py,c -d src/ ^.*let get" 1>&2
   exit 1
 }
+
+declare -a INCLUDE_FILE_TYPES=()
 
 while [ "${#}" -gt 1 ]; do
   case "${1}" in
@@ -28,7 +30,7 @@ while [ "${#}" -gt 1 ]; do
       IFS=,
       read -ra FILES <<< "${2}"
       for file in "${FILES[@]}"; do
-        CMD+="--include='*.${file}' "
+        INCLUDE_FILE_TYPES+=("--include='*.${file}' ")
       done
       IFS="${_IFS}"
       shift; shift
@@ -52,7 +54,7 @@ done
 
 # grep opts: recursive, non-binary, list-files, extended-regex, null-byte terminated
 # NOTE: ANSI colors from grep messes-up piping filenames
-GREP="grep -RIlEZ --color=never  '${PATTERN}' ${SEARCHDIR} "
+GREP="grep -RIlEZ --color=never  ${INCLUDE_FILE_TYPES[*]} '${PATTERN}' ${SEARCHDIR} "
 
 # highlight pattern and replacement to show exact part of line that will change
 GRN=$'\033[1;32m'; RED=$'\033[1;31m'; NC=$'\033[0m'
