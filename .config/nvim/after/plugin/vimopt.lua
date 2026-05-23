@@ -26,9 +26,6 @@ vim.opt.undofile = true
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
 
--- easier on the eyes
-vim.opt.termguicolors = true
-
 -- colorscheme
 vim.cmd 'colorscheme retrobox'
 

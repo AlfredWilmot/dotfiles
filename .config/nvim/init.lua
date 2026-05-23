@@ -38,20 +38,28 @@ vim.pack.add({
 
   -- LSP
   { src = 'https://github.com/neovim/nvim-lspconfig'},
-  { src = 'https://github.com/mrcjkb/rustaceanvim', version = vim.version.range('^9')},
   { src = 'https://github.com/mason-org/mason.nvim'},
   { src = 'https://github.com/mason-org/mason-lspconfig.nvim'},
 
   -- Syntax highlighting
   { src = 'https://github.com/nvim-treesitter/nvim-treesitter'},
 
+  -- Extras
+  --{ src = 'https://github.com/mrcjkb/rustaceanvim', version = vim.version.range('^9')},
+
+})
+require('mini.basics').setup()
+require('mini.snippets').setup()
+require('mini.completion').setup({
+  -- DOCS: https://github.com/nvim-mini/mini.nvim/blob/main/readmes/mini-completion.md
+  mappings = {
+    scroll_down = '<C-j>',
+    scroll_up = '<C-k>'
+  }
 })
 
-require('mini.basics').setup()
-require('mini.completion').setup()
-require('mason').setup()
-
 -- to view an exhautive list of all natively avilable LSPs ':help lspconfig-all'
+require('mason').setup()
 require("mason-lspconfig").setup({
   ensure_installed = {
     "lua_ls",
@@ -60,7 +68,8 @@ require("mason-lspconfig").setup({
     "clangd",
     "gopls",
     "jinja_lsp",
-    "ansiblels"
+    "ansiblels",
+    "rust_analyzer"
   },
 })
 
