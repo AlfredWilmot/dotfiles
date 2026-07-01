@@ -1,4 +1,6 @@
 --------------------------------------------------------------------------------
+--- NOTE: run the following cmd to update packages ':lua vim.pack.update()'
+--------------------------------------------------------------------------------
 -- ( https://github.com/nvim-mini/mini.nvim/tree/main#installation )
 --------------------------------------------------------------------------------
 -- Put this at the top of 'init.lua'
@@ -8,8 +10,7 @@ if not vim.loop.fs_stat(mini_path) then
   vim.cmd('echo "Installing `mini.nvim`" | redraw')
   local clone_cmd = {
     'git', 'clone', '--filter=blob:none',
-    -- Uncomment next line to use 'stable' branch
-    -- '--branch', 'stable',
+    '--branch', 'stable',
     'https://github.com/nvim-mini/mini.nvim', mini_path
   }
   vim.fn.system(clone_cmd)
@@ -44,18 +45,18 @@ vim.pack.add({
   -- Syntax highlighting
   { src = 'https://github.com/nvim-treesitter/nvim-treesitter'},
 
-  -- Extras
-  --{ src = 'https://github.com/mrcjkb/rustaceanvim', version = vim.version.range('^9')},
+  -- NOTE: more efficient than using rust_analyzer via Mason
+  { src = 'https://github.com/mrcjkb/rustaceanvim', version = vim.version.range('^9')},
 
 })
 require('mini.basics').setup()
-require('mini.snippets').setup()
 require('mini.completion').setup({
   -- DOCS: https://github.com/nvim-mini/mini.nvim/blob/main/readmes/mini-completion.md
   mappings = {
     scroll_down = '<C-j>',
     scroll_up = '<C-k>'
-  }
+  },
+  { src = 'https://github.com/nvim-mini/mini.completion', version = 'stable' },
 })
 
 -- to view an exhautive list of all natively avilable LSPs ':help lspconfig-all'
@@ -63,13 +64,11 @@ require('mason').setup()
 require("mason-lspconfig").setup({
   ensure_installed = {
     "lua_ls",
-    "pyright",
+    "ty",
     "bashls",
     "clangd",
     "gopls",
     "jinja_lsp",
-    "ansiblels",
-    "rust_analyzer"
   },
 })
 
