@@ -27,26 +27,28 @@ vim.api.nvim_create_autocmd('PackChanged', { callback = function(ev)
     vim.cmd('TSUpdate') end
 end })
 
--- PLUGINS --
+-- ########################################################################## --
+-- ## PLUGINS
+-- ########################################################################## --
 vim.pack.add({
 
   -- fuzzy-finder
-  { src = 'https://github.com/nvim-lua/plenary.nvim'},
-  { src = 'https://github.com/nvim-telescope/telescope.nvim'},
+  { src = 'https://github.com/nvim-lua/plenary.nvim' },
+  { src = 'https://github.com/nvim-telescope/telescope.nvim' },
 
-  -- assorment of various plugin modules
-  { src = 'https://github.com/nvim-mini/mini.nvim'},
+  -- assortment of various plugin modules
+  { src = 'https://github.com/nvim-mini/mini.nvim' },
 
   -- LSP
-  { src = 'https://github.com/neovim/nvim-lspconfig'},
-  { src = 'https://github.com/mason-org/mason.nvim'},
-  { src = 'https://github.com/mason-org/mason-lspconfig.nvim'},
+  { src = 'https://github.com/neovim/nvim-lspconfig' },
+  { src = 'https://github.com/mason-org/mason.nvim' },
+  { src = 'https://github.com/mason-org/mason-lspconfig.nvim' },
 
   -- Syntax highlighting
-  { src = 'https://github.com/nvim-treesitter/nvim-treesitter'},
+  { src = 'https://github.com/nvim-treesitter/nvim-treesitter' },
 
   -- NOTE: more efficient than using rust_analyzer via Mason
-  { src = 'https://github.com/mrcjkb/rustaceanvim', version = vim.version.range('^9')},
+  { src = 'https://github.com/mrcjkb/rustaceanvim', version = vim.version.range('^9') },
 
 })
 require('mini.basics').setup()
@@ -65,9 +67,9 @@ require("mason-lspconfig").setup({
   ensure_installed = {
     "lua_ls",
     "ty",
+    "gopls",
     "bashls",
     "clangd",
-    "gopls",
     "jinja_lsp",
   },
 })
@@ -78,3 +80,26 @@ vim.filetype.add {
     jinja = 'jinja', jinja2 = 'jinja', j2 = 'jinja',
   },
 }
+
+-- https://go.dev/gopls/editor/vim#neovim
+vim.lsp.config.gopls = {
+  settings = {
+    gopls = {
+      analyses = {
+        unusedparams = true,
+      },
+      staticcheck = true,
+      gofumpt = true,
+    },
+  },
+}
+-- auto-format go files on save (available by default when using gopls)
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*.go",
+  callback = function(args)
+    vim.lsp.buf.format({
+      bufnr = args.buf,
+      async = false,
+    })
+  end,
+})
