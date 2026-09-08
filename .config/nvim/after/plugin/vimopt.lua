@@ -10,11 +10,9 @@ vim.opt.nu = true
 vim.opt.relativenumber = true
 
 -- indentation and line-wrap tweaks
-vim.opt.tabstop = 2
-vim.opt.softtabstop = 2
-vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
-vim.opt.smartindent = true
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
 vim.opt.wrap = false
 
 -- Disable backup files and opt for undotree with long history
@@ -26,9 +24,6 @@ vim.opt.undofile = true
 -- More helpful highlighting
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
-
--- easier on the eyes
-vim.opt.termguicolors = true
 
 -- colorscheme
 vim.cmd 'colorscheme retrobox'
@@ -48,24 +43,38 @@ vim.cmd [[highlight TrailingWS ctermbg=red guibg=red | match TrailingWS /\s\+$/]
 -- format json
 vim.keymap.set("n", "<leader>fj", ":%!jq .<CR>", opts)
 
--- ensure gdb debugger is available
-vim.cmd('packadd! termdebug')
-vim.g.termdebug_wide = 1
-vim.g.termdebugger = "rust-gdb"
+-- Debugger keybindings
+-- (https://youtu.be/lyNfnI-B640)
+local dap = require "dap"
+local ui = require "dapui"
 
--- navigate between the various debugging panes
-vim.keymap.set("n", ",S", ":Source<CR>", opts)
-vim.keymap.set("n", ",G", ":Gdb<CR>i", opts)
-vim.keymap.set("n", ",V", ":Var<CR>", opts)
-vim.keymap.set("n", ",A", ":Asm<CR>", opts)
+require('dapui').setup()
+require('dap-go').setup()
 
--- interact with the debugging session
-vim.keymap.set("n", ",w", ":call TermDebugSendCommand('where')<CR>")
-vim.keymap.set("n", ",e", ":Evaluate<CR>", opts)
-vim.keymap.set("n", ",b", ":Break<CR>", opts)
-vim.keymap.set("n", ",c", ":Continue<CR>", opts)
-vim.keymap.set("n", ",s", ":Step<CR>", opts)
-vim.keymap.set("n", ",n", ":Next<CR>", opts)
+vim.keymap.set("n", "<leader>c", dap.continue)
+vim.keymap.set("n", "<leader>n", dap.step_into)
+vim.keymap.set("n", "<leader>o", dap.step_over)
+vim.keymap.set("n", "<leader>r", dap.restart)
+vim.keymap.set("n", "<leader>d", dap.disconnect)
+vim.keymap.set("n", "<leader>b", dap.toggle_breakpoint)
+vim.keymap.set("n", "<leader>gb", dap.run_to_cursor)
+vim.keymap.set("n", "<leader>?", function() -- check value under cursor
+  require("dapui").eval(nil, {enter = true})
+end)
+
+-- Manage the Debugging UI lifespan in response to certain UI events
+dap.listeners.before.attach.dapui_config = function()
+  ui.open()
+end
+dap.listeners.before.launch.dapui_config = function()
+  ui.open()
+end
+dap.listeners.before.event_terminated.dapui_config = function()
+  ui.close()
+end
+dap.listeners.before.event_exited.dapui_config = function()
+  ui.close()
+end
 
 -- let <ESC> key be used to exit an embedded terminal
 vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]])

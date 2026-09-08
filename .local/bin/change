@@ -1,0 +1,81 @@
+#!/usr/bin/env bash
+
+# disallow unset vars, exit on error, propagate errors through pipes
+set -ue -o pipefail
+
+SEARCHDIR="${PWD}"
+PATTERN=""
+REPLACEMENT=""
+MAX_PROCS=4
+
+usage() {
+  echo "Usage: $(basename "${0}") [OPTION]... PATTERN REPLACEMENT" 1>&2
+  echo "Find and replace text in files." 1>&2
+  echo "" 1>&2
+  echo "OPTIONS:" 1>&2
+  echo "  -f, --file   <comma-separated-file-types> (default: all non-binary files)" 1>&2
+  echo "  -d, --dir    <search-directory>           (default: current dir)" 1>&2
+  echo "" 1>&2
+  echo "EXAMPLE: change -f rs,md,py,c -d src/ ^.*let get" 1>&2
+  exit 1
+}
+
+declare -a INCLUDE_FILE_TYPES=()
+
+while [ "${#}" -gt 1 ]; do
+  case "${1}" in
+    # what file-types should be modified?
+    -f | --files)
+      _IFS="${IFS}"
+      IFS=,
+      read -ra FILES <<< "${2}"
+      for file in "${FILES[@]}"; do
+        INCLUDE_FILE_TYPES+=("--include='*.${file}' ")
+      done
+      IFS="${_IFS}"
+      shift; shift
+      ;;
+   # what dir should we look in for those files?
+    -d | --dir)
+      SEARCHDIR="${2}"
+      shift; shift
+      ;;
+    -h | --help)
+      usage
+      ;;
+    *)
+      PATTERN="${1}"
+      REPLACEMENT="${2}"
+      shift; shift
+      ;;
+  esac
+done
+[ "${PATTERN}" == "" ] && usage
+
+# grep opts: recursive, non-binary, list-files, extended-regex, null-byte terminated
+# NOTE: ANSI colors from grep messes-up piping filenames
+GREP="grep -RIlEZ --color=never  ${INCLUDE_FILE_TYPES[*]} '${PATTERN}' ${SEARCHDIR} "
+
+# highlight pattern and replacement to show exact part of line that will change
+GRN=$'\033[1;32m'; RED=$'\033[1;31m'; NC=$'\033[0m'
+PREVIEW=(
+  "printf '\n%s [${RED}${PATTERN}${NC} --> ${GRN}${REPLACEMENT}${NC}]\n' {}; "
+  "sed -n 's@${PATTERN}@${GRN}${REPLACEMENT}${NC}@g p' {}; "
+)
+# NOTE: use single process for first xarg call to keep preview output coherent
+PREVIEW_CMD="${GREP} | xargs -0 -I {} sh -c \"${PREVIEW[*]}\" "
+
+# less opts: auto exit less if all text fits on screen, retain ANSI colors,
+#            truncate long lines, dont clear, dont clear screen when done
+less -FRSX < <(eval "${PREVIEW_CMD}")
+
+read -rp "Apply changes [y|n]? " SVAR
+case "${SVAR}" in
+  y|Y|[Yy][eE][sS])
+    eval "${GREP} | xargs -0 -P ${MAX_PROCS} -I {} sed -i 's/${PATTERN}/${REPLACEMENT}/g' {}"
+    echo "Done!" 1>&2
+    ;;
+  *)
+    echo "Fine, suit yourself!" 1>&2
+    ;;
+esac
