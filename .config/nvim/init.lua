@@ -47,8 +47,17 @@ vim.pack.add({
   -- Syntax highlighting
   { src = 'https://github.com/nvim-treesitter/nvim-treesitter' },
 
-  -- NOTE: more efficient than using rust_analyzer via Mason
+  -- Rust Dev Tooling
   { src = 'https://github.com/mrcjkb/rustaceanvim', version = vim.version.range('^9') },
+
+  -- Go Dev Tooling (:GoInstallDeps)
+  { src = "https://github.com/olexsmir/gopher.nvim" },
+
+  -- DAP
+  { src = "https://github.com/mfussenegger/nvim-dap"},
+  { src = "https://github.com/leoluz/nvim-dap-go"},
+  { src = "https://github.com/nvim-neotest/nvim-nio"},
+  { src = "https://github.com/rcarriga/nvim-dap-ui"},
 
 })
 require('mini.basics').setup()
@@ -93,6 +102,8 @@ vim.lsp.config.gopls = {
     },
   },
 }
+require('gopher').setup()
+
 -- auto-format go files on save (available by default when using gopls)
 vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = "*.go",
