@@ -83,6 +83,16 @@ require("mason-lspconfig").setup({
   },
 })
 
+-- install other LSPs that don't have an lspconfig name that can be used with the 'ensure_installed' list above.
+vim.schedule(function()
+    local registry = require("mason-registry")
+    local pkg = registry.get_package("language-server-bitbake")
+
+    if not pkg:is_installed() then
+        pkg:install()
+    end
+end)
+
 -- NOTE: though we are using the npm bitbake lsp, it seems only the nvim config
 --       from the python lsp impl seems to actually get the lsp client working (with some tweaks)...
 --       (https://github.com/Freed-Wu/bitbake-language-server/blob/main/docs/resources/configure.md#neovim-1)
