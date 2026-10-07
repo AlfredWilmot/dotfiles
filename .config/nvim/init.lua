@@ -83,10 +83,25 @@ require("mason-lspconfig").setup({
   },
 })
 
+-- NOTE: though we are using the npm bitbake lsp, it seems only the nvim config
+--       from the python lsp impl seems to actually get the lsp client working (with some tweaks)...
+--       (https://github.com/Freed-Wu/bitbake-language-server/blob/main/docs/resources/configure.md#neovim-1)
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+  pattern = { "*.bb", "*.bbappend", "*.bbclass", "*.inc", "conf/*.conf" },
+  callback = function()
+    vim.lsp.start({
+      name = "bitbake",
+      cmd = { "language-server-bitbake", "--stdio" }
+    })
+  end,
+})
+
 -- registering filetypes to activate relevant LSPs
 vim.filetype.add {
   extension = {
     jinja = 'jinja', jinja2 = 'jinja', j2 = 'jinja',
+    -- or is it this that gets the bitbake LSP client working..?
+    bb = 'bitbake', bbappend = 'bitbake', bbclass = 'bitbake', inc = 'bitbake', conf = 'bitbake',
   },
 }
 
